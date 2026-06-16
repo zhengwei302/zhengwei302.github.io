@@ -2,33 +2,27 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href="https://kixlab.org/" target="_blank">KAIST Interaction Lab (KIXLAB)</a>
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: false
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Daejeon, South Korea</p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
-
-announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
-
-latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+news: true
+latest_posts: false
+selected_papers: true
+social: true
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB). I received my Ph.D. in Human-Computer Interaction from the VisLab at the Hong Kong University of Science and Technology (HKUST), where I was supervised by Prof. Huamin Qu and co-supervised by Prof. Pan Hui. My academic foundation was further enriched by my time as a Visiting Researcher at the University of Chicago’s Knowledge Lab, collaborating with Prof. James Evans, and as a Research Intern at Microsoft Research Asia (MSRA) under the guidance of Dr. Yun Wang.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+My research sits at the intersection of Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (VR/AR/MR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can empower creators and enhance human agency. My current work focuses on two primary pillars:
+* **Immersive Environments for Skill Training:** Leveraging interactive environments to facilitate expert learning and skill acquisition.
+* **Human–AI Collaboration:** Designing multi-agent co-creation systems that foster seamless partnerships between humans and generative intelligence for collaborative content creation.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I am an active contributor to the academic community, having organized courses at SIGGRAPH and SIGGRAPH Asia, and served as a Workshop Program Chair for CVPR and Proceedings Chair for ACM MMSys. My scholarly work has been published in premier venues such as CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. Beyond academia, my systems are supported by multiple research grants and a U.S. patent, with practical deployments bridging academic research and real-world Hollywood film production. 
+
+Ultimately, my goal is to shape AI systems that make complex information intuitive and create innovative pathways for responsible artistic expression.
