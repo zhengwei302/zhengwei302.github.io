@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Generative Models for Visual Content Editing and Creation
+title: AI for Creative Visual Content Generation Editing and Understanding (CVEU 2026)
 description: ACM SIGGRAPH 2026 Course
 importance: 1
 category: 2026
