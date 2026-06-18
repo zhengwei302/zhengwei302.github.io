@@ -26,3 +26,9 @@ My research sits at the intersection of Visual Analytics, Human-Centered AI (HCA
 I am an active contributor to the academic community, having organized courses at SIGGRAPH and SIGGRAPH Asia, and served as a Workshop Program Chair for CVPR and Proceedings Chair for ACM MMSys. My scholarly work has been published in premier venues such as CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. Beyond academia, my systems are supported by multiple research grants and a U.S. patent, with practical deployments bridging academic research and real-world Hollywood film production. 
 
 Ultimately, my goal is to shape AI systems that make complex information intuitive and create innovative pathways for responsible artistic expression.
+
+## Academic Service
+
+* **Conference Committee**, ACM SIGGRAPH 2026 Course Organizer,ACM MMsys 2026  Proceedings Chair,ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair
+* **Journal Reviewer**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Journal of Social Computing, Visual Informatics, SoftwareX
+* **Conference Reviewer**, ACM UIST2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM TheWebConf 2026/2025, ACM CHI 2026/2025/2024, VINCI 2025, ACM C&C 2025, ACM CSCW 2025
