@@ -17,15 +17,15 @@ selected_papers: true
 social: true
 ---
 
-I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB). I received my Ph.D. in Human-Computer Interaction from the VisLab at the Hong Kong University of Science and Technology (HKUST), where I was supervised by Prof. Huamin Qu and co-supervised by Prof. Pan Hui. My academic foundation was further enriched by my time as a Visiting Researcher at the University of Chicago’s Knowledge Lab, collaborating with Prof. James Evans, and as a Research Intern at Microsoft Research Asia (MSRA) under the guidance of Dr. Yun Wang.
+I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from the VisLab at HKUST, where I was advised by Prof. Huamin Qu and Prof. Pan Hui. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab (with Prof. James Evans) and as a Research Intern at Microsoft Research Asia (MSRA) (guided by Dr. Yun Wang).
 
-My research sits at the intersection of Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (VR/AR/MR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can empower creators and enhance human agency. My current work focuses on two primary pillars:
-* **Immersive Environments for Skill Training:** Leveraging interactive environments to facilitate expert learning and skill acquisition.
-* **Human–AI Collaboration:** Designing multi-agent co-creation systems that foster seamless partnerships between humans and generative intelligence for collaborative content creation.
+My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (XR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can enhance human agency. My current work focuses on two pillars:
 
-I am an active contributor to the academic community, having organized courses at SIGGRAPH and SIGGRAPH Asia, and served as a Workshop Program Chair for CVPR and Proceedings Chair for ACM MMSys. My scholarly work has been published in premier venues such as CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. Beyond academia, my systems are supported by multiple research grants and a U.S. patent, with practical deployments bridging academic research and real-world Hollywood film production. 
+* **Immersive Environments for Skill Training**: Facilitating expert learning and skill acquisition through interactive systems.
 
-Ultimately, my goal is to shape AI systems that make complex information intuitive and create innovative pathways for responsible artistic expression.
+* **Human–AI Collaboration**: Designing multi-agent systems that foster seamless co-creation between humans and generative AI.
+
+My work has been published in premier venues including CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. I actively serve the community by organizing courses at SIGGRAPH and taking on chair roles for CVPR and ACM MMSys. Beyond academia, my systems are supported by multiple grants. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression.
 
 ## Academic Service
 
