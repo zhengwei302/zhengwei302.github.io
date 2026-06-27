@@ -14,8 +14,8 @@ The core visual metaphor that drives my current thinking is captured here: it is
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <figure>
-            <img src="/assets/img/watermarked_img_17176403649812693799.png" class="img-fluid rounded z-depth-1" alt="A bridge of intent">
-            <figcaption class="caption text-center">A visual metaphor for the new HCI—a glowing bridge of intent, blending human touch with abstract geometric data streams, rather than simple command execution.</figcaption>
+            <img src="/assets/img/B1.png" class="img-fluid rounded z-depth-1" alt="A bridge of intent">
+            <figcaption class="caption text-center">A designed, hand-sketched visualization of the new HCI—a complex, layered bridge of data and geometry flowing from a cloud of abstract human intent, blending organic lines with architectural data structures, rather than simple command execution.</figcaption>
         </figure>
     </div>
 </div>
@@ -35,8 +35,8 @@ The first profound research area is **navigating the dynamic boundary of agency*
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <figure>
-            <img src="/assets/img/watermarked_img_7164632654614349995.png" class="img-fluid rounded z-depth-1" alt="Agentic Dance Visualization">
-            <figcaption class="caption text-center">Visualization of the 'Agentic Dance.' A user's guiding input is explicitly split into parallel streams that direct a collaborative network of diverse AI agents, not just a single model.</figcaption>
+            <img src="/assets/img/B2.png" class="img-fluid rounded z-depth-1" alt="Agentic Dance Visualization">
+            <figcaption class="caption text-center">Visualization of the 'Agentic Dance,' rendered as a sophisticated editorial diagram with hand-lettered text and sketch textures. A user's guiding input is split into distinct streams that direct parallel tasks (e.g., coding, market analysis, content generation) carried out by a collaborative network of diverse AI agents.</figcaption>
         </figure>
     </div>
 </div>
@@ -54,8 +54,8 @@ A second profound research direction is **Escaping the Chatbox** and anchoring A
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <figure>
-            <img src="/assets/img/watermarked_img_4994786739322869040.png" class="img-fluid rounded z-depth-1" alt="Data spatialization">
-            <figcaption class="caption text-center">Visualize data spatialization. A user wearing an MR headset physically walks through and manipulates a large-scale, immersive 3D knowledge graph, with real-time AI explanations annotated directly onto the data structures.</figcaption>
+            <img src="/assets/img/B3.png" class="img-fluid rounded z-depth-1" alt="Data spatialization">
+            <figcaption class="caption text-center">Visualize data spatialization using a designed, hand-painted aesthetic with visible ink line work and gouache texture. A user wearing an MR headset physically walks through a textured, immersive 3D knowledge galaxy, with real-time AI explanatory insights annotated directly as part of the painted structure.</figcaption>
         </figure>
     </div>
 </div>
@@ -73,15 +73,15 @@ Technology is fundamentally a medium for expression. The most profound HCI resea
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <figure>
-            <img src="/assets/img/watermarked_img_14115114736492007377.png" class="img-fluid rounded z-depth-1" alt="The Director's Loop">
-            <figcaption class="caption text-center">Visualization of the 'Director's Loop.' A creative professional directs a massive production scene using a spatial interface, while an underlying AI engine instantaneously modifies complex scene parameters in response to the user's directional cues.</figcaption>
+            <img src="/assets/img/B4.png" class="img-fluid rounded z-depth-1" alt="The Director's Loop">
+            <figcaption class="caption text-center">Visualization of the 'Director's Loop' as a mythic hand-drawn creation mandala, featuring watercolor and gouache textures. A creative professional uses precise spatial cues and haptic input to direct a massive, re-forming, painted production scene, explicitly showing underlying diagrammatic controls modifying the 'paint strokes.'</figcaption>
         </figure>
     </div>
 </div>
 
 Value is created by designing what I call the **Directed Creativity Loop**. We need interaction models where the user’s nuanced control—expressed through gesture, intention, or emotion—is the *primary* driver of creation. The AI is a powerful generator that instantaneously synthesizes possibilities, but the human retains the role of narrative selection and synthesis.
 
-### Conclusion: Re-anchoring the Human
+### Re-anchoring the Human
 
 HCI research is not facing obsolescence; it is facing its true, final challenge. The technology has evolved faster than the *interaction framework*. The value of HCI is no longer in optimizing interaction *speed*; it is in anchoring the rapid, alien intelligence of foundation models to *human values*.
 
