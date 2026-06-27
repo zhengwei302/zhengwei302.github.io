@@ -15,7 +15,7 @@ The core visual metaphor that drives my current thinking is captured here: it is
     <div class="col-sm mt-3 mt-md-0">
         <figure>
             <img src="/assets/img/B1.png" class="img-fluid rounded z-depth-1" alt="A bridge of intent">
-            <figcaption class="caption text-center">A designed, hand-sketched visualization of the new HCI—a complex, layered bridge of data and geometry flowing from a cloud of abstract human intent, blending organic lines with architectural data structures, rather than simple command execution.</figcaption>
+            <figcaption class="caption text-center">A designed, hand-sketched visualization of the new HCI—a complex, layered bridge of data and geometry flowing from a cloud of abstract human intent, blending organic lines with architectural data structures, rather than simple command execution (Gemini generated image).</figcaption>
         </figure>
     </div>
 </div>
@@ -36,7 +36,7 @@ The first profound research area is **navigating the dynamic boundary of agency*
     <div class="col-sm mt-3 mt-md-0">
         <figure>
             <img src="/assets/img/B2.png" class="img-fluid rounded z-depth-1" alt="Agentic Dance Visualization">
-            <figcaption class="caption text-center">Visualization of the 'Agentic Dance,' rendered as a sophisticated editorial diagram with hand-lettered text and sketch textures. A user's guiding input is split into distinct streams that direct parallel tasks (e.g., coding, market analysis, content generation) carried out by a collaborative network of diverse AI agents.</figcaption>
+            <figcaption class="caption text-center">Visualization of the 'Agentic Dance,' rendered as a sophisticated editorial diagram with hand-lettered text and sketch textures. A user's guiding input is split into distinct streams that direct parallel tasks (e.g., coding, market analysis, content generation) carried out by a collaborative network of diverse AI agents (Gemini generated image).</figcaption>
         </figure>
     </div>
 </div>
@@ -55,7 +55,7 @@ A second profound research direction is **Escaping the Chatbox** and anchoring A
     <div class="col-sm mt-3 mt-md-0">
         <figure>
             <img src="/assets/img/B3.png" class="img-fluid rounded z-depth-1" alt="Data spatialization">
-            <figcaption class="caption text-center">Visualize data spatialization using a designed, hand-painted aesthetic with visible ink line work and gouache texture. A user wearing an MR headset physically walks through a textured, immersive 3D knowledge galaxy, with real-time AI explanatory insights annotated directly as part of the painted structure.</figcaption>
+            <figcaption class="caption text-center">Visualize data spatialization using a designed, hand-painted aesthetic with visible ink line work and gouache texture. A user wearing an MR headset physically walks through a textured, immersive 3D knowledge galaxy, with real-time AI explanatory insights annotated directly as part of the painted structure (Gemini generated image).</figcaption>
         </figure>
     </div>
 </div>
@@ -74,7 +74,7 @@ Technology is fundamentally a medium for expression. The most profound HCI resea
     <div class="col-sm mt-3 mt-md-0">
         <figure>
             <img src="/assets/img/B4.png" class="img-fluid rounded z-depth-1" alt="The Director's Loop">
-            <figcaption class="caption text-center">Visualization of the 'Director's Loop' as a mythic hand-drawn creation mandala, featuring watercolor and gouache textures. A creative professional uses precise spatial cues and haptic input to direct a massive, re-forming, painted production scene, explicitly showing underlying diagrammatic controls modifying the 'paint strokes.'</figcaption>
+            <figcaption class="caption text-center">Visualization of the 'Director's Loop' as a mythic hand-drawn creation mandala, featuring watercolor and gouache textures. A creative professional uses precise spatial cues and haptic input to direct a massive, re-forming, painted production scene, explicitly showing underlying diagrammatic controls modifying the 'paint strokes.' (Gemini generated image) </figcaption>
         </figure>
     </div>
 </div>
