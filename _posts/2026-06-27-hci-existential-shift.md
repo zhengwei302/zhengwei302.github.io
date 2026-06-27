@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "HCI's Existential Shift: What Research is Worth Doing in the Era of Infinite AI?"
-date: 2026-06-27 23:48:00
+date: 2026-06-27 23:48:00 +0900
 description: "A deep reflection on the core value of Human-Computer Interaction research in the age of generative AI."
 tags: HCAI VR Human-AI-loop Thoughts
 categories: research
