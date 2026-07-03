@@ -21,14 +21,19 @@ I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working wi
 
 My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (XR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can enhance human agency. My current work focuses on two pillars:
 
-* **Immersive Environments for Skill Training**: Facilitating expert learning and skill acquisition through interactive systems.
+**Immersive Environments for Skill Training**: Facilitating expert learning and skill acquisition through interactive systems.
 
-* **Human–AI Collaboration**: Designing multi-agent systems that foster seamless co-creation between humans and generative AI.
+**Human–AI Collaboration**: Designing multi-agent systems that foster seamless co-creation between humans and generative AI.
 
-My work has been published in premier venues including CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. I actively serve the community by organizing courses at SIGGRAPH and taking on chair roles for CVPR and ACM MMSys. Beyond academia, my systems are supported by multiple grants. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression.
+My work has been published in premier venues including CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. I actively serve the community by organizing courses at SIGGRAPH and taking on chair roles for CVPR Workshop and ACM MMSys. Beyond academia, my systems are supported by multiple grants. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression. 
 
 ## Academic service
 
-* **Conference Committee**, ACM SIGGRAPH 2026 Course Organizer,ACM MMsys 2026 Proceedings Chair, ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair
-* **Journal Reviewer**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX
-* **Conference Reviewer**, ACM CHI 2026/2025/2024, ACM UIST 2026, ACM CSCW 2025, ACM TheWebConf 2026/2025, EMNLP2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM C&C 2025, VINCI 2025
+**Conference Committee**, ACM SIGGRAPH 2026 Course Organizer,ACM MMsys 2026 Proceedings Chair, ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair
+**Journal Reviewer**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX
+**Conference Reviewer**, ACM CHI 2026/2025/2024, ACM UIST 2026, ACM CSCW 2025, ACM TheWebConf 2026/2025, EMNLP2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM C&C 2025, VINCI 2025
+
+## News
+A paper I co-authored has been conditionally accepted by IEEE ISMAR 2026!
+We'll be hosting a workshop at [SIGGRAPH 2026](https://cveu.github.io/)!
+
