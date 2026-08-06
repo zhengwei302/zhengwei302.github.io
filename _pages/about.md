@@ -17,7 +17,7 @@ selected_papers: true
 social: true
 ---
 
-I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from the VisLab at HKUST, where I was advised by Prof. Huamin Qu and Prof. Pan Hui. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab (with Prof. James Evans) and as a Research Intern at Microsoft Research Asia (MSRA) (guided by Dr. Yun Wang).
+I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from the VisLab at HKUST, where I was advised by Prof. Huamin Qu and Prof. Pan Hui. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab (with Prof. James Evans) and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK) (guided by Dr. Yun Wang).
 
 My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (XR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can enhance human agency. My current work focuses on two pillars:
 
@@ -29,11 +29,16 @@ My work has been published in premier venues including CHI, UIST, IEEE TVCG, and
 
 ## Academic service
 
-**Conference Committee**, ACM SIGGRAPH 2026 Course Organizer,ACM MMsys 2026 Proceedings Chair, ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair
+**Conference Committee**, ACM CHI 2027 Associate Chair, ACM SIGGRAPH 2026 Asia Course Organizer, ACM SIGGRAPH 2026 Course Organizer, ACM MMsys 2026 Proceedings Chair, ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair
+
 **Journal Reviewer**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX
+
 **Conference Reviewer**, ACM CHI 2026/2025/2024, ACM UIST 2026, ACM CSCW 2025, ACM TheWebConf 2026/2025, EMNLP2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM C&C 2025, VINCI 2025
 
 ## News
 A paper I co-authored has been conditionally accepted by IEEE ISMAR 2026 (TVCG Track)!
-// We'll be hosting a workshop at [SIGGRAPH 2026](https://cveu.github.io/)!
+
+A paper I co-authored has been conditionally accepted by International Journal of Human–Computer Interaction (IJHCI)!
+
+We'll be hosting a course at SIGGRAPH Aisa 2026! 
 
