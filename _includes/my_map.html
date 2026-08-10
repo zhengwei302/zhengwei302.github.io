@@ -1,118 +1,236 @@
-<!-- 引入 Mapbox 和 Deck.gl 的 CDN 依赖 -->
+<!-- Include Mapbox and Deck.gl CDN Dependencies -->
 <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
 
-<!-- 设置地图容器及悬浮卡片样式 -->
+<!-- Container and Tooltip Styles -->
 <style>
   #footprints-map-container {
     width: 100%;
-    height: 520px;
+    height: 560px;
     position: relative;
     border-radius: 12px;
     overflow: hidden;
     margin: 20px 0;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   }
   .map-tooltip {
     position: absolute;
     z-index: 10;
-    background: rgba(15, 23, 42, 0.85);
+    background: rgba(15, 23, 42, 0.88);
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 13px;
     pointer-events: none;
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 </style>
 
-<!-- 地图容器 -->
+<!-- Map Container -->
 <div id="footprints-map-container">
   <div id="tooltip" class="map-tooltip"></div>
 </div>
 
 <script>
-  // 1. 填入你刚才创建的带域名限制的 Mapbox Token
   const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtdG1odzcwaHEzMzRxdzBzbXE3dXhrIn0.9dHWyAqWaUUroxbwUMkNFQ';
 
-  // 2. 配置你去过的地点与轨迹数据（包含分类、地点名称和描述）
-  // 分类颜色配置 (RGB)
-  const COLOR_EDUCATION = [0, 225, 255];   // 亮蓝：求学/攻读学位
-  const COLOR_RESEARCH = [255, 180, 0];    // 橙金：访问学者/实习/工作
-  const COLOR_CONFERENCE = [180, 100, 255]; // 紫色：学术会议/学术交流
+  // 1. Category Color Definitions (RGB Format)
+  const COLOR_EDUCATION = [0, 225, 255];    // Cyan Blue: Education
+  const COLOR_WORK      = [255, 170, 0];    // Amber Gold: Work / Research
+  const COLOR_FLIGHT    = [236, 72, 153];   // Pink: Flight Travel
+  const COLOR_DRIVE     = [34, 197, 94];    // Emerald Green: Road Trips (Reserved)
 
-  // 去过的地点列表
-  const places = [
-    { name: "香港 (HKUST / MSRA)", coords: [114.1694, 22.3193], type: "Education / Intern", color: COLOR_EDUCATION },
-    { name: "芝加哥 (UChicago Knowledge Lab)", coords: [-87.6298, 41.8781], type: "Visiting Research", color: COLOR_RESEARCH },
-    { name: "大田 (KAIST)", coords: [127.3845, 36.3504], type: "Postdoc Research", color: COLOR_RESEARCH }
-    // 你可以继续在此添加你去过的其他城市，格式：{ name: "城市名", coords: [经度, 纬度], type: "类型", color: COLOR_XXX }
+  // 2. City Coordinates Library (Longitude, Latitude)
+  const CITIES = {
+    "Urumqi": [87.6177, 43.7928],
+    "Beijing": [116.4074, 39.9042],
+    "Guangzhou": [113.2644, 23.1291],
+    "Hong Kong": [114.1694, 22.3193],
+    "Chicago": [-87.6298, 41.8781],
+    "Shenzhen": [114.0579, 22.5431],
+    "South Korea": [127.3845, 36.3504], // Daejeon (KAIST)
+    "Shenyang": [123.4315, 41.8057],
+    "Dalian": [121.6147, 38.9140],
+    "Yinchuan": [106.2781, 38.4664],
+    "Xi'an": [108.9398, 34.3416],
+    "Shanghai": [121.4737, 31.2304],
+    "Hangzhou": [120.1551, 30.2741],
+    "Nanjing": [118.7969, 32.0603],
+    "Wuhan": [114.3055, 30.5928],
+    "Changsha": [112.9388, 28.2282],
+    "Chongqing": [106.5516, 29.5630],
+    "Chengdu": [104.0668, 30.5728],
+    "Haikou": [110.3312, 20.0311],
+    "Sanya": [109.5119, 18.2528],
+    "Xiamen": [118.0894, 24.4798],
+    "Wenzhou": [120.6994, 28.0006],
+    "Zhuhai": [113.5767, 22.2707],
+    "Prague": [14.4378, 50.0755],
+    "Paris": [2.3522, 48.8566],
+    "Amsterdam": [4.9041, 52.3676],
+    "London": [-0.1276, 51.5074],
+    "Dubai": [55.2708, 25.2048],
+    "Kuala Lumpur": [101.6869, 3.1390],
+    "Seoul": [126.9780, 37.5665],
+    "Tokyo": [139.6917, 35.6895],
+    "Osaka": [135.5023, 34.6937],
+    "Vienna": [16.3738, 48.2082],
+    "Taipei": [121.5654, 25.0330],
+    "Los Angeles": [-118.2437, 34.0522],
+    "Bangkok": [100.5018, 13.7563],
+    "Bali": [115.1889, -8.4095],
+    "Singapore": [103.8198, 1.3521],
+    "Sydney": [151.2093, -33.8688],
+    "Jakarta": [106.8456, -6.2088],
+    "Helsinki": [24.9384, 60.1699],
+    "Cebu": [123.8854, 10.3157],
+    "Morocco": [-6.8498, 34.0209], // Casablanca / Rabat
+    "Asahikawa": [142.3648, 43.7706],
+    "Sapporo": [141.3545, 43.0618],
+    "Surabaya": [112.7521, -7.2575],
+    "Sandakan": [118.1174, 5.8394],
+    "Switzerland": [7.4474, 46.9480], // Bern
+    "Inverness": [-4.2247, 57.4778],
+    "Nice": [7.2620, 43.7102],
+    "Rome": [12.4964, 41.9028],
+    "Barcelona": [2.1734, 41.3851]
+  };
+
+  // 3. Route Construction
+  const educationRoutes = [
+    ["Urumqi", "Beijing"],
+    ["Beijing", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "Chicago"]
   ];
 
-  // 轨迹飞线数据 (起点 -> 终点)
-  const arcsData = [
-    { 
-      from: "香港", to: "芝加哥", 
-      sourcePosition: [114.1694, 22.3193], 
-      targetPosition: [-87.6298, 41.8781], 
-      color: COLOR_RESEARCH 
-    },
-    { 
-      from: "香港", to: "大田", 
-      sourcePosition: [114.1694, 22.3193], 
-      targetPosition: [127.3845, 36.3504], 
-      color: COLOR_RESEARCH 
-    }
-    // 你可以根据经历添加更多起点到终点的连线轨迹
+  const workRoutes = [
+    ["Beijing", "Shenzhen"],
+    ["Shenzhen", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "South Korea"]
   ];
 
-  // 3. 初始化 Mapbox 暗黑底图
+  const flightRoutes = [
+    // Departing from Beijing
+    ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
+    ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
+    ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
+    ["Beijing", "Guangzhou"], ["Beijing", "Shenzhen"], ["Beijing", "Haikou"], ["Beijing", "Sanya"],
+    ["Beijing", "Xiamen"], ["Beijing", "Wenzhou"], ["Beijing", "Zhuhai"], ["Beijing", "Prague"],
+    ["Beijing", "Paris"], ["Beijing", "Amsterdam"], ["Beijing", "London"], ["Beijing", "Dubai"],
+    ["Beijing", "Kuala Lumpur"], ["Beijing", "Seoul"], ["Beijing", "Tokyo"], ["Beijing", "Osaka"],
+    ["Beijing", "Vienna"],
+    // Departing from Guangzhou
+    ["Guangzhou", "Urumqi"], ["Guangzhou", "Taipei"], ["Guangzhou", "Hong Kong"], ["Guangzhou", "Los Angeles"],
+    ["Guangzhou", "Bangkok"], ["Guangzhou", "Seoul"], ["Guangzhou", "Kuala Lumpur"], ["Guangzhou", "Bali"],
+    ["Guangzhou", "Singapore"], ["Guangzhou", "Sydney"], ["Guangzhou", "Jakarta"],
+    // Departing from Hong Kong
+    ["Hong Kong", "Seoul"], ["Hong Kong", "Los Angeles"], ["Hong Kong", "Helsinki"], ["Hong Kong", "Cebu"],
+    // Other International & Intercity Flights
+    ["Dubai", "Morocco"],
+    ["Asahikawa", "Tokyo"],
+    ["Sapporo", "Shenzhen"],
+    ["Bali", "Surabaya"],
+    ["Kuala Lumpur", "Sandakan"],
+    ["Helsinki", "Switzerland"],
+    ["Switzerland", "Paris"],
+    ["London", "Inverness"],
+    ["Paris", "Nice"],
+    ["Nice", "Rome"],
+    ["Rome", "Barcelona"],
+    ["Barcelona", "Paris"]
+  ];
+
+  // Reserved for Road Trip / Driving Routes
+  const driveRoutes = [
+    // Example: ["Beijing", "Tianjin"]
+  ];
+
+  // Helper function to convert route arrays into ArcLayer data objects
+  function createArcData(routes, color, categoryName) {
+    return routes.map(([from, to]) => ({
+      from, to,
+      category: categoryName,
+      sourcePosition: CITIES[from],
+      targetPosition: CITIES[to],
+      color: color
+    })).filter(d => d.sourcePosition && d.targetPosition);
+  }
+
+  const allArcs = [
+    ...createArcData(educationRoutes, COLOR_EDUCATION, "Education"),
+    ...createArcData(workRoutes, COLOR_WORK, "Work / Research"),
+    ...createArcData(flightRoutes, COLOR_FLIGHT, "Flight Travel"),
+    ...createArcData(driveRoutes, COLOR_DRIVE, "Road Trip")
+  ];
+
+  // 4. Automatically extract city points from arcs
+  const cityMap = new Map();
+  allArcs.forEach(arc => {
+    if (!cityMap.has(arc.from)) cityMap.set(arc.from, { name: arc.from, coords: arc.sourcePosition, color: arc.color, category: arc.category });
+    if (!cityMap.has(arc.to)) cityMap.set(arc.to, { name: arc.to, coords: arc.targetPosition, color: arc.color, category: arc.category });
+  });
+  const allPlaces = Array.from(cityMap.values());
+
+  // 5. Initialize Mapbox Map
   const map = new mapboxgl.Map({
     container: 'footprints-map-container',
     style: 'mapbox://styles/mapbox/dark-v11',
-    center: [110, 30], // 地图初始中心点视角
-    zoom: 1.8,
-    pitch: 35, // 倾斜视角凸显 3D 飞线
+    center: [50, 30], // Centered global view
+    zoom: 1.6,
+    pitch: 30,
     accessToken: MAPBOX_ACCESS_TOKEN,
     interactive: true
   });
 
   const tooltip = document.getElementById('tooltip');
 
-  // 4. 等地图底图加载完毕，叠加 散点图层 + 飞线图层
   map.on('load', () => {
     const deckOverlay = new deck.MapboxOverlay({
       layers: [
-        // 飞线图层（展示轨迹连接）
+        // Arc Layer (Flight/Travel Arcs)
         new deck.ArcLayer({
           id: 'footprint-arcs',
-          data: arcsData,
+          data: allArcs,
           getSourcePosition: d => d.sourcePosition,
           getTargetPosition: d => d.targetPosition,
           getSourceColor: d => d.color,
           getTargetColor: d => d.color,
-          getWidth: 2.5,
-          getHeight: 0.4
-        }),
-        // 散点图层（标记每一个留过足迹的城市）
-        new deck.ScatterplotLayer({
-          id: 'footprint-points',
-          data: places,
-          getPosition: d => d.coords,
-          getFillColor: d => d.color,
-          getRadius: 80000,
-          radiusMinPixels: 6,
-          radiusMaxPixels: 15,
+          getWidth: 2,
+          getHeight: 0.35,
           pickable: true,
           onHover: info => {
             if (info.object) {
               tooltip.style.display = 'block';
               tooltip.style.left = `${info.x + 10}px`;
               tooltip.style.top = `${info.y + 10}px`;
-              tooltip.innerHTML = `<strong>${info.object.name}</strong><br/><span style="opacity:0.8">${info.object.type}</span>`;
+              tooltip.innerHTML = `<strong>${info.object.from} → ${info.object.to}</strong><br/><span style="opacity:0.8">${info.object.category}</span>`;
+            } else {
+              tooltip.style.display = 'none';
+            }
+          }
+        }),
+        // Scatterplot Layer (City Markers)
+        new deck.ScatterplotLayer({
+          id: 'footprint-points',
+          data: allPlaces,
+          getPosition: d => d.coords,
+          getFillColor: d => d.color,
+          getRadius: 50000,
+          radiusMinPixels: 4,
+          radiusMaxPixels: 12,
+          pickable: true,
+          onHover: info => {
+            if (info.object) {
+              tooltip.style.display = 'block';
+              tooltip.style.left = `${info.x + 10}px`;
+              tooltip.style.top = `${info.y + 10}px`;
+              tooltip.innerHTML = `<strong>${info.object.name}</strong>`;
             } else {
               tooltip.style.display = 'none';
             }
