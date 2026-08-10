@@ -4,7 +4,7 @@
   }
 </style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://zhengwei302.github.io/footprints/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
     initTheme();
-  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <script src="https://unpkg.com/deck.gl@8.9.27/dist.min.js"></script> <style>
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> <style>
   #footprints-map-container {
     width: 100%;
     height: 580px;
@@ -14,9 +14,6 @@
     margin: 20px 0;
     background: #090d16;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-  .leaflet-container {
-    background: #090d16 !important;
   }
   .map-tooltip {
     position: absolute;
@@ -32,67 +29,77 @@
     display: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
+  .leaflet-container {
+    background: #090d16 !important;
+  }
+  canvas.footprint-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    z-index: 400;
+  }
 </style> <div id="footprints-map-container"> <div id="tooltip" class="map-tooltip"></div> </div> <script>
   // 1. Color Palette (RGB)
-  const COLOR_EDUCATION = [0, 225, 255];    // Cyan Blue
-  const COLOR_WORK      = [255, 170, 0];    // Amber Gold
-  const COLOR_FLIGHT    = [236, 72, 153];   // Pink
-  const COLOR_DRIVE     = [34, 197, 94];    // Emerald Green
+  const COLOR_EDUCATION = 'rgb(0, 225, 255)';   // Cyan Blue
+  const COLOR_WORK      = 'rgb(255, 170, 0)';   // Amber Gold
+  const COLOR_FLIGHT    = 'rgb(236, 72, 153)';  // Pink
+  const COLOR_DRIVE     = 'rgb(34, 197, 94)';   // Emerald Green
 
-  // 2. City Coordinates (Longitude, Latitude)
+  // 2. City Coordinates (Latitude, Longitude for Leaflet)
   const CITIES = {
-    "Urumqi": [87.6177, 43.7928],
-    "Beijing": [116.4074, 39.9042],
-    "Guangzhou": [113.2644, 23.1291],
-    "Hong Kong": [114.1694, 22.3193],
-    "Chicago": [-87.6298, 41.8781],
-    "Shenzhen": [114.0579, 22.5431],
-    "South Korea": [127.3845, 36.3504],
-    "Shenyang": [123.4315, 41.8057],
-    "Dalian": [121.6147, 38.9140],
-    "Yinchuan": [106.2781, 38.4664],
-    "Xi'an": [108.9398, 34.3416],
-    "Shanghai": [121.4737, 31.2304],
-    "Hangzhou": [120.1551, 30.2741],
-    "Nanjing": [118.7969, 32.0603],
-    "Wuhan": [114.3055, 30.5928],
-    "Changsha": [112.9388, 28.2282],
-    "Chongqing": [106.5516, 29.5630],
-    "Chengdu": [104.0668, 30.5728],
-    "Haikou": [110.3312, 20.0311],
-    "Sanya": [109.5119, 18.2528],
-    "Xiamen": [118.0894, 24.4798],
-    "Wenzhou": [120.6994, 28.0006],
-    "Zhuhai": [113.5767, 22.2707],
-    "Prague": [14.4378, 50.0755],
-    "Paris": [2.3522, 48.8566],
-    "Amsterdam": [4.9041, 52.3676],
-    "London": [-0.1276, 51.5074],
-    "Dubai": [55.2708, 25.2048],
-    "Kuala Lumpur": [101.6869, 3.1390],
-    "Seoul": [126.9780, 37.5665],
-    "Tokyo": [139.6917, 35.6895],
-    "Osaka": [135.5023, 34.6937],
-    "Vienna": [16.3738, 48.2082],
-    "Taipei": [121.5654, 25.0330],
-    "Los Angeles": [-118.2437, 34.0522],
-    "Bangkok": [100.5018, 13.7563],
-    "Bali": [115.1889, -8.4095],
-    "Singapore": [103.8198, 1.3521],
-    "Sydney": [151.2093, -33.8688],
-    "Jakarta": [106.8456, -6.2088],
-    "Helsinki": [24.9384, 60.1699],
-    "Cebu": [123.8854, 10.3157],
-    "Morocco": [-6.8498, 34.0209],
-    "Asahikawa": [142.3648, 43.7706],
-    "Sapporo": [141.3545, 43.0618],
-    "Surabaya": [112.7521, -7.2575],
-    "Sandakan": [118.1174, 5.8394],
-    "Switzerland": [7.4474, 46.9480],
-    "Inverness": [-4.2247, 57.4778],
-    "Nice": [7.2620, 43.7102],
-    "Rome": [12.4964, 41.9028],
-    "Barcelona": [2.1734, 41.3851]
+    "Urumqi": [43.7928, 87.6177],
+    "Beijing": [39.9042, 116.4074],
+    "Guangzhou": [23.1291, 113.2644],
+    "Hong Kong": [22.3193, 114.1694],
+    "Chicago": [41.8781, -87.6298],
+    "Shenzhen": [22.5431, 114.0579],
+    "South Korea": [36.3504, 127.3845],
+    "Shenyang": [41.8057, 123.4315],
+    "Dalian": [38.9140, 121.6147],
+    "Yinchuan": [38.4664, 106.2781],
+    "Xi'an": [34.3416, 108.9398],
+    "Shanghai": [31.2304, 121.4737],
+    "Hangzhou": [30.2741, 120.1551],
+    "Nanjing": [32.0603, 118.7969],
+    "Wuhan": [30.5928, 114.3055],
+    "Changsha": [28.2282, 112.9388],
+    "Chongqing": [29.5630, 106.5516],
+    "Chengdu": [30.5728, 104.0668],
+    "Haikou": [20.0311, 110.3312],
+    "Sanya": [18.2528, 109.5119],
+    "Xiamen": [24.4798, 118.0894],
+    "Wenzhou": [28.0006, 120.6994],
+    "Zhuhai": [22.2707, 113.5767],
+    "Prague": [50.0755, 14.4378],
+    "Paris": [48.8566, 2.3522],
+    "Amsterdam": [52.3676, 4.9041],
+    "London": [51.5074, -0.1276],
+    "Dubai": [25.2048, 55.2708],
+    "Kuala Lumpur": [3.1390, 101.6869],
+    "Seoul": [37.5665, 126.9780],
+    "Tokyo": [35.6895, 139.6917],
+    "Osaka": [34.6937, 135.5023],
+    "Vienna": [48.2082, 16.3738],
+    "Taipei": [25.0330, 121.5654],
+    "Los Angeles": [34.0522, -118.2437],
+    "Bangkok": [13.7563, 100.5018],
+    "Bali": [-8.4095, 115.1889],
+    "Singapore": [1.3521, 103.8198],
+    "Sydney": [-33.8688, 151.2093],
+    "Jakarta": [-6.2088, 106.8456],
+    "Helsinki": [60.1699, 24.9384],
+    "Cebu": [10.3157, 123.8854],
+    "Morocco": [34.0209, -6.8498],
+    "Asahikawa": [43.7706, 142.3648],
+    "Sapporo": [43.0618, 141.3545],
+    "Surabaya": [-7.2575, 112.7521],
+    "Sandakan": [5.8394, 118.1174],
+    "Switzerland": [46.9480, 7.4474],
+    "Inverness": [57.4778, -4.2247],
+    "Nice": [43.7102, 7.2620],
+    "Rome": [41.9028, 12.4964],
+    "Barcelona": [41.3851, 2.1734]
   };
 
   // 3. Routes Definition
@@ -116,91 +123,126 @@
   ];
   const driveRoutes = [];
 
-  function createArcData(routes, color, categoryName) {
+  function buildArcs(routes, color, category) {
     return routes.map(([from, to]) => ({
-      from, to, category: categoryName,
-      sourcePosition: CITIES[from], targetPosition: CITIES[to], color: color
-    })).filter(d => d.sourcePosition && d.targetPosition);
+      from, to, category, color,
+      start: CITIES[from], end: CITIES[to]
+    })).filter(d => d.start && d.end);
   }
 
   const allArcs = [
-    ...createArcData(educationRoutes, COLOR_EDUCATION, "Education"),
-    ...createArcData(workRoutes, COLOR_WORK, "Work / Research"),
-    ...createArcData(flightRoutes, COLOR_FLIGHT, "Flight Travel"),
-    ...createArcData(driveRoutes, COLOR_DRIVE, "Road Trip")
+    ...buildArcs(educationRoutes, COLOR_EDUCATION, "Education"),
+    ...buildArcs(workRoutes, COLOR_WORK, "Work / Research"),
+    ...buildArcs(flightRoutes, COLOR_FLIGHT, "Flight Travel"),
+    ...buildArcs(driveRoutes, COLOR_DRIVE, "Road Trip")
   ];
 
   const cityMap = new Map();
   allArcs.forEach(arc => {
-    if (!cityMap.has(arc.from)) cityMap.set(arc.from, { name: arc.from, coords: arc.sourcePosition, color: arc.color, category: arc.category });
-    if (!cityMap.has(arc.to)) cityMap.set(arc.to, { name: arc.to, coords: arc.targetPosition, color: arc.color, category: arc.category });
+    if (!cityMap.has(arc.from)) cityMap.set(arc.from, { name: arc.from, coords: arc.start, color: arc.color });
+    if (!cityMap.has(arc.to)) cityMap.set(arc.to, { name: arc.to, coords: arc.end, color: arc.color });
   });
   const allPlaces = Array.from(cityMap.values());
 
-  // 4. Initialize Leaflet Map Engine
+  // 4. Initialize Leaflet
   const map = L.map('footprints-map-container', {
-    center: [20, 30],
+    center: [25, 40],
     zoom: 2,
-    zoomControl: false
+    zoomControl: true
   });
 
-  // Dark Map Tiles (CartoDB Dark Matter)
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd',
     maxZoom: 19
   }).addTo(map);
 
-  // 5. Deck.gl Layer Integration
-  const deckLayer = new deck.LeafletLayer({
-    views: [new deck.MapView({id: 'map'})],
-    layers: [
-      new deck.ArcLayer({
-        id: 'footprint-arcs',
-        data: allArcs,
-        getSourcePosition: d => d.sourcePosition,
-        getTargetPosition: d => d.targetPosition,
-        getSourceColor: d => d.color,
-        getTargetColor: d => d.color,
-        getWidth: 2,
-        getHeight: 0.3,
-        pickable: true,
-        onHover: info => {
-          const tooltip = document.getElementById('tooltip');
-          if (info.object) {
-            tooltip.style.display = 'block';
-            tooltip.style.left = `${info.x + 12}px`;
-            tooltip.style.top = `${info.y + 12}px`;
-            tooltip.innerHTML = `<strong>${info.object.from} → ${info.object.to}</strong><br/><span style="opacity:0.8">${info.object.category}</span>`;
-          } else {
-            tooltip.style.display = 'none';
-          }
-        }
-      }),
-      new deck.ScatterplotLayer({
-        id: 'footprint-points',
-        data: allPlaces,
-        getPosition: d => d.coords,
-        getFillColor: d => d.color,
-        getRadius: 45000,
-        radiusMinPixels: 4,
-        radiusMaxPixels: 10,
-        pickable: true,
-        onHover: info => {
-          const tooltip = document.getElementById('tooltip');
-          if (info.object) {
-            tooltip.style.display = 'block';
-            tooltip.style.left = `${info.x + 12}px`;
-            tooltip.style.top = `${info.y + 12}px`;
-            tooltip.innerHTML = `<strong>${info.object.name}</strong>`;
-          } else {
-            tooltip.style.display = 'none';
-          }
-        }
-      })
-    ]
-  });
+  // 5. Canvas Overlay Layer
+  const container = document.getElementById('footprints-map-container');
+  const canvas = document.createElement('canvas');
+  canvas.className = 'footprint-overlay';
+  container.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
 
-  map.addLayer(deckLayer);
+  function resizeCanvas() {
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw Arc Lines
+    allArcs.forEach(arc => {
+      const p1 = map.latLngToContainerPoint(arc.start);
+      const p2 = map.latLngToContainerPoint(arc.end);
+
+      // Midpoint & Curve Control Point
+      const midX = (p1.x + p2.x) / 2;
+      const midY = (p1.y + p2.y) / 2;
+      const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      const ctrlX = midX;
+      const ctrlY = midY - Math.min(dist * 0.25, 120);
+
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.quadraticCurveTo(ctrlX, ctrlY, p2.x, p2.y);
+      ctx.strokeStyle = arc.color;
+      ctx.lineWidth = 1.5;
+      ctx.globalAlpha = 0.6;
+      ctx.stroke();
+    });
+
+    // Draw City Nodes
+    allPlaces.forEach(place => {
+      const p = map.latLngToContainerPoint(place.coords);
+      
+      // Outer Glow
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = place.color;
+      ctx.globalAlpha = 0.3;
+      ctx.fill();
+
+      // Inner Core
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = 0.9;
+      ctx.fill();
+    });
+  }
+
+  map.on('move', draw);
+  map.on('zoom', draw);
+  draw();
+
+  // Hover Interaction
+  const tooltip = document.getElementById('tooltip');
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    let hovered = null;
+    for (const place of allPlaces) {
+      const p = map.latLngToContainerPoint(place.coords);
+      if (Math.hypot(p.x - mouseX, p.y - mouseY) < 8) {
+        hovered = place.name;
+        break;
+      }
+    }
+
+    if (hovered) {
+      tooltip.style.display = 'block';
+      tooltip.style.left = `${mouseX + 12}px`;
+      tooltip.style.top = `${mouseY + 12}px`;
+      tooltip.innerHTML = `<strong>${hovered}</strong>`;
+    } else {
+      tooltip.style.display = 'none';
+    }
+  });
 </script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Zheng Wei. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false
