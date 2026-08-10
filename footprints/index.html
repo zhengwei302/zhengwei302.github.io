@@ -7,7 +7,7 @@
   </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <link href="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.css" rel="stylesheet"> <script src="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.js"></script> <style>
   #footprints-map-container {
     width: 100%;
-    height: 560px;
+    height: 580px;
     position: relative;
     border-radius: 12px;
     overflow: hidden;
@@ -29,27 +29,18 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 </style> <div id="footprints-map-container"> <div id="tooltip" class="map-tooltip"></div> </div> <script>
-  // 1. 初始化 Mapbox 地球视图（采用你提供的官方标准配置）
   mapboxgl.accessToken = 'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtc2N6dTAwYjllMnhvbHI5cGx1bzBoIn0.5HfKsKj-csx50yZr8P4MhQ';
   
+  // 1. 初始化地图，改用经典暗黑风格样式，并把视角拉近 (zoom: 3) 聚焦欧亚大陆
   const map = new mapboxgl.Map({
     container: 'footprints-map-container',
-    style: 'mapbox://styles/mapbox/standard', // Mapbox Standard 高级风格
-    projection: 'globe', // 3D 地球模式
-    zoom: 1.2,
-    center: [30, 15]
+    style: 'mapbox://styles/mapbox/dark-v11',
+    projection: 'mercator', // 使用墨卡托平面，彻底避免大白球
+    zoom: 3,
+    center: [105, 35] // 聚焦中国与欧亚大陆中心
   });
 
   map.addControl(new mapboxgl.NavigationControl());
-  map.scrollZoom.disable();
-
-  map.on('style.load', () => {
-    map.setFog({
-      color: 'rgb(18, 24, 38)', // 空间大气层颜色
-      'high-color': 'rgb(36, 52, 85)',
-      'horizon-blend': 0.02
-    }); 
-  });
 
   // 2. 城市坐标库
   const CITIES = {
@@ -73,7 +64,7 @@
     "Barcelona": [2.1734, 41.3851]
   };
 
-  // 3. 路线与颜色定义
+  // 3. 路线定义
   const educationRoutes = [["Urumqi", "Beijing"], ["Beijing", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "Chicago"]];
   const workRoutes = [["Beijing", "Shenzhen"], ["Shenzhen", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "South Korea"]];
   const flightRoutes = [
@@ -107,31 +98,29 @@
   }
 
   const features = [
-    ...getLineFeatures(educationRoutes, '#00e1ff'), // 教育：青蓝
-    ...getLineFeatures(workRoutes, '#ffaa00'),      // 工作：金橙
-    ...getLineFeatures(flightRoutes, '#ec4899')    // 航班：粉红
+    ...getLineFeatures(educationRoutes, '#00e1ff'), // 青蓝：教育
+    ...getLineFeatures(workRoutes, '#ffaa00'),      // 金橙：工作
+    ...getLineFeatures(flightRoutes, '#ec4899')    // 粉红：航班
   ];
 
-  // 4. 当地图加载完毕后，使用 Mapbox 原生 GeoJSON 渲染航线与城市散点
+  // 4. 加载 GeoJSON 渲染航线与城市点
   map.on('load', () => {
     map.addSource('routes', {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: features }
     });
 
-    // 渲染航线
     map.addLayer({
       id: 'route-lines',
       type: 'line',
       source: 'routes',
       paint: {
         'line-color': ['get', 'color'],
-        'line-width': 2,
-        'line-opacity': 0.7
+        'line-width': 2.5,
+        'line-opacity': 0.8
       }
     });
 
-    // 提取所有城市并渲染圆点
     const citySet = new Set();
     [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(r => { citySet.add(r[0]); citySet.add(r[1]); });
     
@@ -158,7 +147,7 @@
       }
     });
 
-    // 悬浮提示交互
+    // 悬浮提示
     const tooltip = document.getElementById('tooltip');
     
     map.on('mousemove', 'city-points', (e) => {
