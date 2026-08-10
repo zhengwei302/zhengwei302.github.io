@@ -1,5 +1,8 @@
-<!-- Mapbox GL JS v3 依赖 -->
-<link href="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.css" rel="stylesheet" />
+<link
+  href="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.css"
+  rel="stylesheet"
+/>
+
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.js"></script>
 
 <style>
@@ -12,160 +15,300 @@
     margin: 20px 0;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
+
+  #footprints-map {
+    width: 100%;
+    height: 100%;
+  }
+
   .map-tooltip {
     position: absolute;
     z-index: 100;
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.95);
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
     font-size: 13px;
     pointer-events: none;
-    backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     display: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 </style>
 
 <div id="footprints-map-container">
+  <div id="footprints-map"></div>
   <div id="tooltip" class="map-tooltip"></div>
 </div>
 
 <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtc2N6dTAwYjllMnhvbHI5cGx1bzBoIn0.5HfKsKj-csx50yZr8P4MhQ';
-  
-  // 1. 初始化地图，改用经典暗黑风格样式，并把视角拉近 (zoom: 3) 聚焦欧亚大陆
-  const map = new mapboxgl.Map({
-    container: 'footprints-map-container',
-    style: 'mapbox://styles/mapbox/dark-v11',
-    projection: 'mercator', // 使用墨卡托平面，彻底避免大白球
-    zoom: 3,
-    center: [105, 35] // 聚焦中国与欧亚大陆中心
-  });
+  mapboxgl.accessToken =
+    'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtc2N6dTAwYjllMnhvbHI5cGx1bzBoIn0.5HfKsKj-csx50yZr8P4MhQ';
 
-  map.addControl(new mapboxgl.NavigationControl());
-
-  // 2. 城市坐标库
   const CITIES = {
-    "Urumqi": [87.6177, 43.7928], "Beijing": [116.4074, 39.9042], "Guangzhou": [113.2644, 23.1291],
-    "Hong Kong": [114.1694, 22.3193], "Chicago": [-87.6298, 41.8781], "Shenzhen": [114.0579, 22.5431],
-    "South Korea": [127.3845, 36.3504], "Shenyang": [123.4315, 41.8057], "Dalian": [121.6147, 38.9140],
-    "Yinchuan": [106.2781, 38.4664], "Xi'an": [108.9398, 34.3416], "Shanghai": [121.4737, 31.2304],
-    "Hangzhou": [120.1551, 30.2741], "Nanjing": [118.7969, 32.0603], "Wuhan": [114.3055, 30.5928],
-    "Changsha": [112.9388, 28.2282], "Chongqing": [106.5516, 29.5630], "Chengdu": [104.0668, 30.5728],
-    "Haikou": [110.3312, 20.0311], "Sanya": [109.5119, 18.2528], "Xiamen": [118.0894, 24.4798],
-    "Wenzhou": [120.6994, 28.0006], "Zhuhai": [113.5767, 22.2707], "Prague": [14.4378, 50.0755],
-    "Paris": [2.3522, 48.8566], "Amsterdam": [4.9041, 52.3676], "London": [-0.1276, 51.5074],
-    "Dubai": [55.2708, 25.2048], "Kuala Lumpur": [101.6869, 3.1390], "Seoul": [126.9780, 37.5665],
-    "Tokyo": [139.6917, 35.6895], "Osaka": [135.5023, 34.6937], "Vienna": [16.3738, 48.2082],
-    "Taipei": [121.5654, 25.0330], "Los Angeles": [-118.2437, 34.0522], "Bangkok": [100.5018, 13.7563],
-    "Bali": [115.1889, -8.4095], "Singapore": [103.8198, 1.3521], "Sydney": [151.2093, -33.8688],
-    "Jakarta": [106.8456, -6.2088], "Helsinki": [24.9384, 60.1699], "Cebu": [123.8854, 10.3157],
-    "Morocco": [-6.8498, 34.0209], "Asahikawa": [142.3648, 43.7706], "Sapporo": [141.3545, 43.0618],
-    "Surabaya": [112.7521, -7.2575], "Sandakan": [118.1174, 5.8394], "Switzerland": [7.4474, 46.9480],
-    "Inverness": [-4.2247, 57.4778], "Nice": [7.2620, 43.7102], "Rome": [12.4964, 41.9028],
+    "Urumqi": [87.6177, 43.7928],
+    "Beijing": [116.4074, 39.9042],
+    "Guangzhou": [113.2644, 23.1291],
+    "Hong Kong": [114.1694, 22.3193],
+    "Chicago": [-87.6298, 41.8781],
+    "Shenzhen": [114.0579, 22.5431],
+    "South Korea": [127.3845, 36.3504],
+    "Shenyang": [123.4315, 41.8057],
+    "Dalian": [121.6147, 38.9140],
+    "Yinchuan": [106.2781, 38.4664],
+    "Xi'an": [108.9398, 34.3416],
+    "Shanghai": [121.4737, 31.2304],
+    "Hangzhou": [120.1551, 30.2741],
+    "Nanjing": [118.7969, 32.0603],
+    "Wuhan": [114.3055, 30.5928],
+    "Changsha": [112.9388, 28.2282],
+    "Chongqing": [106.5516, 29.5630],
+    "Chengdu": [104.0668, 30.5728],
+    "Haikou": [110.3312, 20.0311],
+    "Sanya": [109.5119, 18.2528],
+    "Xiamen": [118.0894, 24.4798],
+    "Wenzhou": [120.6994, 28.0006],
+    "Zhuhai": [113.5767, 22.2707],
+    "Prague": [14.4378, 50.0755],
+    "Paris": [2.3522, 48.8566],
+    "Amsterdam": [4.9041, 52.3676],
+    "London": [-0.1276, 51.5074],
+    "Dubai": [55.2708, 25.2048],
+    "Kuala Lumpur": [101.6869, 3.1390],
+    "Seoul": [126.9780, 37.5665],
+    "Tokyo": [139.6917, 35.6895],
+    "Osaka": [135.5023, 34.6937],
+    "Vienna": [16.3738, 48.2082],
+    "Taipei": [121.5654, 25.0330],
+    "Los Angeles": [-118.2437, 34.0522],
+    "Bangkok": [100.5018, 13.7563],
+    "Bali": [115.1889, -8.4095],
+    "Singapore": [103.8198, 1.3521],
+    "Sydney": [151.2093, -33.8688],
+    "Jakarta": [106.8456, -6.2088],
+    "Helsinki": [24.9384, 60.1699],
+    "Cebu": [123.8854, 10.3157],
+    "Morocco": [-6.8498, 34.0209],
+    "Asahikawa": [142.3648, 43.7706],
+    "Sapporo": [141.3545, 43.0618],
+    "Surabaya": [112.7521, -7.2575],
+    "Sandakan": [118.1174, 5.8394],
+    "Switzerland": [7.4474, 46.9480],
+    "Inverness": [-4.2247, 57.4778],
+    "Nice": [7.2620, 43.7102],
+    "Rome": [12.4964, 41.9028],
     "Barcelona": [2.1734, 41.3851]
   };
 
-  // 3. 路线定义
-  const educationRoutes = [["Urumqi", "Beijing"], ["Beijing", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "Chicago"]];
-  const workRoutes = [["Beijing", "Shenzhen"], ["Shenzhen", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "South Korea"]];
-  const flightRoutes = [
-    ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
-    ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
-    ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
-    ["Beijing", "Guangzhou"], ["Beijing", "Shenzhen"], ["Beijing", "Haikou"], ["Beijing", "Sanya"],
-    ["Beijing", "Xiamen"], ["Beijing", "Wenzhou"], ["Beijing", "Zhuhai"], ["Beijing", "Prague"],
-    ["Beijing", "Paris"], ["Beijing", "Amsterdam"], ["Beijing", "London"], ["Beijing", "Dubai"],
-    ["Beijing", "Kuala Lumpur"], ["Beijing", "Seoul"], ["Beijing", "Tokyo"], ["Beijing", "Osaka"],
-    ["Beijing", "Vienna"], ["Guangzhou", "Urumqi"], ["Guangzhou", "Taipei"], ["Guangzhou", "Hong Kong"],
-    ["Guangzhou", "Los Angeles"], ["Guangzhou", "Bangkok"], ["Guangzhou", "Seoul"], ["Guangzhou", "Kuala Lumpur"],
-    ["Guangzhou", "Bali"], ["Guangzhou", "Singapore"], ["Guangzhou", "Sydney"], ["Guangzhou", "Jakarta"],
-    ["Hong Kong", "Seoul"], ["Hong Kong", "Los Angeles"], ["Hong Kong", "Helsinki"], ["Hong Kong", "Cebu"],
-    ["Dubai", "Morocco"], ["Asahikawa", "Tokyo"], ["Sapporo", "Shenzhen"], ["Bali", "Surabaya"],
-    ["Kuala Lumpur", "Sandakan"], ["Helsinki", "Switzerland"], ["Switzerland", "Paris"], ["London", "Inverness"],
-    ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
+  const educationRoutes = [
+    ["Urumqi", "Beijing"],
+    ["Beijing", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "Chicago"]
   ];
 
-  function getLineFeatures(routes, colorHex) {
-    return routes.map(([from, to]) => {
-      const c1 = CITIES[from];
-      const c2 = CITIES[to];
-      if (!c1 || !c2) return null;
-      return {
-        type: 'Feature',
-        properties: { color: colorHex, route: `${from} → ${to}` },
-        geometry: { type: 'LineString', coordinates: [c1, c2] }
-      };
-    }).filter(Boolean);
+  const workRoutes = [
+    ["Beijing", "Shenzhen"],
+    ["Shenzhen", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "South Korea"]
+  ];
+
+  const flightRoutes = [
+    ["Beijing", "Urumqi"],
+    ["Beijing", "Shenyang"],
+    ["Beijing", "Dalian"],
+    ["Beijing", "Yinchuan"],
+    ["Beijing", "Xi'an"],
+    ["Beijing", "Shanghai"],
+    ["Beijing", "Hangzhou"],
+    ["Beijing", "Nanjing"],
+    ["Beijing", "Wuhan"],
+    ["Beijing", "Changsha"],
+    ["Beijing", "Chongqing"],
+    ["Beijing", "Chengdu"],
+    ["Beijing", "Guangzhou"],
+    ["Beijing", "Shenzhen"],
+    ["Beijing", "Haikou"],
+    ["Beijing", "Sanya"],
+    ["Beijing", "Xiamen"],
+    ["Beijing", "Wenzhou"],
+    ["Beijing", "Zhuhai"],
+    ["Beijing", "Prague"],
+    ["Beijing", "Paris"],
+    ["Beijing", "Amsterdam"],
+    ["Beijing", "London"],
+    ["Beijing", "Dubai"],
+    ["Beijing", "Kuala Lumpur"],
+    ["Beijing", "Seoul"],
+    ["Beijing", "Tokyo"],
+    ["Beijing", "Osaka"],
+    ["Beijing", "Vienna"],
+    ["Guangzhou", "Urumqi"],
+    ["Guangzhou", "Taipei"],
+    ["Guangzhou", "Hong Kong"],
+    ["Guangzhou", "Los Angeles"],
+    ["Guangzhou", "Bangkok"],
+    ["Guangzhou", "Seoul"],
+    ["Guangzhou", "Kuala Lumpur"],
+    ["Guangzhou", "Bali"],
+    ["Guangzhou", "Singapore"],
+    ["Guangzhou", "Sydney"],
+    ["Guangzhou", "Jakarta"],
+    ["Hong Kong", "Seoul"],
+    ["Hong Kong", "Los Angeles"],
+    ["Hong Kong", "Helsinki"],
+    ["Hong Kong", "Cebu"],
+    ["Dubai", "Morocco"],
+    ["Asahikawa", "Tokyo"],
+    ["Sapporo", "Shenzhen"],
+    ["Bali", "Surabaya"],
+    ["Kuala Lumpur", "Sandakan"],
+    ["Helsinki", "Switzerland"],
+    ["Switzerland", "Paris"],
+    ["London", "Inverness"],
+    ["Paris", "Nice"],
+    ["Nice", "Rome"],
+    ["Rome", "Barcelona"],
+    ["Barcelona", "Paris"]
+  ];
+
+  function getLineFeatures(routes, color) {
+    return routes
+      .map(([from, to]) => {
+        const c1 = CITIES[from];
+        const c2 = CITIES[to];
+
+        if (!c1 || !c2) return null;
+
+        return {
+          type: "Feature",
+          properties: {
+            color: color,
+            route: `${from} → ${to}`
+          },
+          geometry: {
+            type: "LineString",
+            coordinates: [c1, c2]
+          }
+        };
+      })
+      .filter(Boolean);
   }
 
   const features = [
-    ...getLineFeatures(educationRoutes, '#00e1ff'), // 青蓝：教育
-    ...getLineFeatures(workRoutes, '#ffaa00'),      // 金橙：工作
-    ...getLineFeatures(flightRoutes, '#ec4899')    // 粉红：航班
+    ...getLineFeatures(educationRoutes, "#00e1ff"),
+    ...getLineFeatures(workRoutes, "#ffaa00"),
+    ...getLineFeatures(flightRoutes, "#ec4899")
   ];
 
-  // 4. 加载 GeoJSON 渲染航线与城市点
-  map.on('load', () => {
-    map.addSource('routes', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: features }
+  const map = new mapboxgl.Map({
+    container: "footprints-map",
+    style: "mapbox://styles/mapbox/dark-v11",
+    center: [105, 35],
+    zoom: 3,
+    projection: "mercator"
+  });
+
+  map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+  map.on("load", () => {
+
+    /* ---------------- Routes ---------------- */
+
+    map.addSource("routes", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: features
+      }
     });
 
     map.addLayer({
-      id: 'route-lines',
-      type: 'line',
-      source: 'routes',
+      id: "route-lines",
+      type: "line",
+      source: "routes",
       paint: {
-        'line-color': ['get', 'color'],
-        'line-width': 2.5,
-        'line-opacity': 0.8
+        "line-color": ["get", "color"],
+        "line-width": 2.5,
+        "line-opacity": 0.8
       }
     });
+
+    /* ---------------- Cities ---------------- */
 
     const citySet = new Set();
-    [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(r => { citySet.add(r[0]); citySet.add(r[1]); });
-    
-    const pointFeatures = Array.from(citySet).map(name => ({
-      type: 'Feature',
-      properties: { name },
-      geometry: { type: 'Point', coordinates: CITIES[name] }
-    })).filter(f => f.geometry.coordinates);
 
-    map.addSource('points', {
-      type: 'geojson',
-      data: { type: 'FeatureCollection', features: pointFeatures }
-    });
+    [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(
+      ([from, to]) => {
+        citySet.add(from);
+        citySet.add(to);
+      }
+    );
 
-    map.addLayer({
-      id: 'city-points',
-      type: 'circle',
-      source: 'points',
-      paint: {
-        'circle-radius': 5,
-        'circle-color': '#ffffff',
-        'circle-stroke-width': 2,
-        'circle-stroke-color': '#ec4899'
+    const pointFeatures = Array.from(citySet)
+      .map(name => {
+        if (!CITIES[name]) return null;
+
+        return {
+          type: "Feature",
+          properties: {
+            name: name
+          },
+          geometry: {
+            type: "Point",
+            coordinates: CITIES[name]
+          }
+        };
+      })
+      .filter(Boolean);
+
+    map.addSource("points", {
+      type: "geojson",
+      data: {
+        type: "FeatureCollection",
+        features: pointFeatures
       }
     });
 
-    // 悬浮提示
-    const tooltip = document.getElementById('tooltip');
-    
-    map.on('mousemove', 'city-points', (e) => {
-      map.getCanvas().style.cursor = 'pointer';
+    map.addLayer({
+      id: "city-points",
+      type: "circle",
+      source: "points",
+      paint: {
+        "circle-radius": 5,
+        "circle-color": "#ffffff",
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#ec4899"
+      }
+    });
+
+    /* ---------------- Tooltip ---------------- */
+
+    const tooltip = document.getElementById("tooltip");
+
+    map.on("mousemove", "city-points", e => {
+
+      map.getCanvas().style.cursor = "pointer";
+
       const name = e.features[0].properties.name;
-      tooltip.style.display = 'block';
+
+      tooltip.style.display = "block";
       tooltip.style.left = `${e.point.x + 12}px`;
       tooltip.style.top = `${e.point.y + 12}px`;
+
       tooltip.innerHTML = `<strong>${name}</strong>`;
     });
 
-    map.on('mouseleave', 'city-points', () => {
-      map.getCanvas().style.cursor = '';
-      tooltip.style.display = 'none';
+    map.on("mouseleave", "city-points", () => {
+      map.getCanvas().style.cursor = "";
+      tooltip.style.display = "none";
     });
+
+    console.log("Mapbox map loaded successfully.");
+  });
+
+  map.on("error", e => {
+    console.error("Mapbox error:", e);
   });
 </script>
