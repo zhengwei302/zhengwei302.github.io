@@ -12,6 +12,7 @@
     border-radius: 12px;
     overflow: hidden;
     margin: 20px 0;
+    background-color: #0b0e14;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
   .map-tooltip {
@@ -29,7 +30,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 </style> <div id="footprints-map-container"> <div id="tooltip" class="map-tooltip"></div> </div> <script>
-  // 1. Mapbox Token
+  // 1. Mapbox Access Token
   mapboxgl.accessToken = 'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtdG1odzcwaHEzMzRxdzBzbXE3dXhrIn0.9dHWyAqWaUUroxbwUMkNFQ';
 
   // 2. Color Palette (RGB)
@@ -136,68 +137,66 @@
   });
   const allPlaces = Array.from(cityMap.values());
 
-  // 5. Initialize Mapbox Map
+  // 5. Initialize Mapbox Map Engine with Mercator Projection
   const map = new mapboxgl.Map({
     container: 'footprints-map-container',
-    style: 'mapbox://styles/mapbox/dark-v11', // Mapbox 暗黑高级风格
-    center: [50, 30],
-    zoom: 1.6,
-    pitch: 35, // 倾斜视角，增强立体感
-    bearing: 0
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [30, 25],
+    zoom: 1.3,
+    pitch: 0,
+    projection: 'mercator' // 核心修复：强行关掉 3D Globe，使用墨卡托平面底图
   });
 
   const tooltip = document.getElementById('tooltip');
 
   map.on('load', () => {
-    // 叠加 3D 飞线图层
-    const arcLayer = new deck.MapboxLayer({
-      id: 'footprint-arcs',
-      type: deck.ArcLayer,
-      data: allArcs,
-      getSourcePosition: d => d.sourcePosition,
-      getTargetPosition: d => d.targetPosition,
-      getSourceColor: d => d.color,
-      getTargetColor: d => d.color,
-      getWidth: 2.2,
-      getHeight: 0.4,
-      pickable: true,
-      onHover: info => {
-        if (info.object) {
-          tooltip.style.display = 'block';
-          tooltip.style.left = `${info.x + 12}px`;
-          tooltip.style.top = `${info.y + 12}px`;
-          tooltip.innerHTML = `<strong>${info.object.from} → ${info.object.to}</strong><br/><span style="opacity:0.8">${info.object.category}</span>`;
-        } else {
-          tooltip.style.display = 'none';
-        }
-      }
+    const deckOverlay = new deck.MapboxOverlay({
+      layers: [
+        new deck.ArcLayer({
+          id: 'footprint-arcs',
+          data: allArcs,
+          getSourcePosition: d => d.sourcePosition,
+          getTargetPosition: d => d.targetPosition,
+          getSourceColor: d => d.color,
+          getTargetColor: d => d.color,
+          getWidth: 2,
+          getHeight: 0.35,
+          pickable: true,
+          onHover: info => {
+            if (info.object) {
+              tooltip.style.display = 'block';
+              tooltip.style.left = `${info.x + 12}px`;
+              tooltip.style.top = `${info.y + 12}px`;
+              tooltip.innerHTML = `<strong>${info.object.from} → ${info.object.to}</strong><br/><span style="opacity:0.8">${info.object.category}</span>`;
+            } else {
+              tooltip.style.display = 'none';
+            }
+          }
+        }),
+        new deck.ScatterplotLayer({
+          id: 'footprint-points',
+          data: allPlaces,
+          getPosition: d => d.coords,
+          getFillColor: d => d.color,
+          getRadius: 45000,
+          radiusMinPixels: 4,
+          radiusMaxPixels: 10,
+          pickable: true,
+          onHover: info => {
+            if (info.object) {
+              tooltip.style.display = 'block';
+              tooltip.style.left = `${info.x + 12}px`;
+              tooltip.style.top = `${info.y + 12}px`;
+              tooltip.innerHTML = `<strong>${info.object.name}</strong>`;
+            } else {
+              tooltip.style.display = 'none';
+            }
+          }
+        })
+      ]
     });
 
-    // 叠加 散点图层
-    const scatterLayer = new deck.MapboxLayer({
-      id: 'footprint-points',
-      type: deck.ScatterplotLayer,
-      data: allPlaces,
-      getPosition: d => d.coords,
-      getFillColor: d => d.color,
-      getRadius: 40000,
-      radiusMinPixels: 4,
-      radiusMaxPixels: 12,
-      pickable: true,
-      onHover: info => {
-        if (info.object) {
-          tooltip.style.display = 'block';
-          tooltip.style.left = `${info.x + 12}px`;
-          tooltip.style.top = `${info.y + 12}px`;
-          tooltip.innerHTML = `<strong>${info.object.name}</strong>`;
-        } else {
-          tooltip.style.display = 'none';
-        }
-      }
-    });
-
-    map.addLayer(arcLayer);
-    map.addLayer(scatterLayer);
+    map.addControl(deckOverlay);
   });
 </script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Zheng Wei. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
