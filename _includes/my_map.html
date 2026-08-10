@@ -1,0 +1,126 @@
+<!-- 引入 Mapbox 和 Deck.gl 的 CDN 依赖 -->
+<script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+
+<!-- 设置地图容器及悬浮卡片样式 -->
+<style>
+  #footprints-map-container {
+    width: 100%;
+    height: 520px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  .map-tooltip {
+    position: absolute;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.85);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: none;
+  }
+</style>
+
+<!-- 地图容器 -->
+<div id="footprints-map-container">
+  <div id="tooltip" class="map-tooltip"></div>
+</div>
+
+<script>
+  // 1. 填入你刚才创建的带域名限制的 Mapbox Token
+  const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtdG1odzcwaHEzMzRxdzBzbXE3dXhrIn0.9dHWyAqWaUUroxbwUMkNFQ';
+
+  // 2. 配置你去过的地点与轨迹数据（包含分类、地点名称和描述）
+  // 分类颜色配置 (RGB)
+  const COLOR_EDUCATION = [0, 225, 255];   // 亮蓝：求学/攻读学位
+  const COLOR_RESEARCH = [255, 180, 0];    // 橙金：访问学者/实习/工作
+  const COLOR_CONFERENCE = [180, 100, 255]; // 紫色：学术会议/学术交流
+
+  // 去过的地点列表
+  const places = [
+    { name: "香港 (HKUST / MSRA)", coords: [114.1694, 22.3193], type: "Education / Intern", color: COLOR_EDUCATION },
+    { name: "芝加哥 (UChicago Knowledge Lab)", coords: [-87.6298, 41.8781], type: "Visiting Research", color: COLOR_RESEARCH },
+    { name: "大田 (KAIST)", coords: [127.3845, 36.3504], type: "Postdoc Research", color: COLOR_RESEARCH }
+    // 你可以继续在此添加你去过的其他城市，格式：{ name: "城市名", coords: [经度, 纬度], type: "类型", color: COLOR_XXX }
+  ];
+
+  // 轨迹飞线数据 (起点 -> 终点)
+  const arcsData = [
+    { 
+      from: "香港", to: "芝加哥", 
+      sourcePosition: [114.1694, 22.3193], 
+      targetPosition: [-87.6298, 41.8781], 
+      color: COLOR_RESEARCH 
+    },
+    { 
+      from: "香港", to: "大田", 
+      sourcePosition: [114.1694, 22.3193], 
+      targetPosition: [127.3845, 36.3504], 
+      color: COLOR_RESEARCH 
+    }
+    // 你可以根据经历添加更多起点到终点的连线轨迹
+  ];
+
+  // 3. 初始化 Mapbox 暗黑底图
+  const map = new mapboxgl.Map({
+    container: 'footprints-map-container',
+    style: 'mapbox://styles/mapbox/dark-v11',
+    center: [110, 30], // 地图初始中心点视角
+    zoom: 1.8,
+    pitch: 35, // 倾斜视角凸显 3D 飞线
+    accessToken: MAPBOX_ACCESS_TOKEN,
+    interactive: true
+  });
+
+  const tooltip = document.getElementById('tooltip');
+
+  // 4. 等地图底图加载完毕，叠加 散点图层 + 飞线图层
+  map.on('load', () => {
+    const deckOverlay = new deck.MapboxOverlay({
+      layers: [
+        // 飞线图层（展示轨迹连接）
+        new deck.ArcLayer({
+          id: 'footprint-arcs',
+          data: arcsData,
+          getSourcePosition: d => d.sourcePosition,
+          getTargetPosition: d => d.targetPosition,
+          getSourceColor: d => d.color,
+          getTargetColor: d => d.color,
+          getWidth: 2.5,
+          getHeight: 0.4
+        }),
+        // 散点图层（标记每一个留过足迹的城市）
+        new deck.ScatterplotLayer({
+          id: 'footprint-points',
+          data: places,
+          getPosition: d => d.coords,
+          getFillColor: d => d.color,
+          getRadius: 80000,
+          radiusMinPixels: 6,
+          radiusMaxPixels: 15,
+          pickable: true,
+          onHover: info => {
+            if (info.object) {
+              tooltip.style.display = 'block';
+              tooltip.style.left = `${info.x + 10}px`;
+              tooltip.style.top = `${info.y + 10}px`;
+              tooltip.innerHTML = `<strong>${info.object.name}</strong><br/><span style="opacity:0.8">${info.object.type}</span>`;
+            } else {
+              tooltip.style.display = 'none';
+            }
+          }
+        })
+      ]
+    });
+
+    map.addControl(deckOverlay);
+  });
+</script>
