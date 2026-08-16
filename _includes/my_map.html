@@ -1,9 +1,10 @@
 <link
-  href="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.css"
+  href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css"
   rel="stylesheet"
 />
-
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.28.0/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+<!-- 引入 Turf.js 用于自动生成真实的弯曲大圆航线 -->
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
 <style>
   #footprints-map-container {
@@ -28,14 +29,15 @@
     position: absolute;
     z-index: 100;
     background: rgba(15, 23, 42, 0.95);
-    color: white;
-    padding: 8px 12px;
+    color: #f8fafc;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 13px;
+    font-size: 12px;
     pointer-events: none;
     display: none;
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transform: translate(12px, 12px);
   }
 </style>
 
@@ -45,29 +47,16 @@
 </div>
 
 <script>
-/* =========================================================
-   1. Mapbox Token
-   ========================================================= */
-
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXNtc2N6dTAwYjllMnhvbHI5cGx1bzBoIn0.5HfKsKj-csx50yZr8P4MhQ";
-
-
-/* =========================================================
-   2. City coordinates
-   ========================================================= */
+mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
 
 const CITIES = {
-
   "Urumqi": [87.6177, 43.7928],
   "Beijing": [116.4074, 39.9042],
   "Guangzhou": [113.2644, 23.1291],
   "Hong Kong": [114.1694, 22.3193],
   "Chicago": [-87.6298, 41.8781],
-
   "Shenzhen": [114.0579, 22.5431],
   "South Korea": [127.3845, 36.3504],
-
   "Shenyang": [123.4315, 41.8057],
   "Dalian": [121.6147, 38.9140],
   "Yinchuan": [106.2781, 38.4664],
@@ -84,36 +73,30 @@ const CITIES = {
   "Xiamen": [118.0894, 24.4798],
   "Wenzhou": [120.6994, 28.0006],
   "Zhuhai": [113.5767, 22.2707],
-
   "Prague": [14.4378, 50.0755],
   "Paris": [2.3522, 48.8566],
   "Amsterdam": [4.9041, 52.3676],
   "London": [-0.1276, 51.5074],
   "Dubai": [55.2708, 25.2048],
-
   "Kuala Lumpur": [101.6869, 3.1390],
   "Seoul": [126.9780, 37.5665],
   "Tokyo": [139.6917, 35.6895],
   "Osaka": [135.5023, 34.6937],
   "Vienna": [16.3738, 48.2082],
   "Taipei": [121.5654, 25.0330],
-
   "Los Angeles": [-118.2437, 34.0522],
   "Bangkok": [100.5018, 13.7563],
   "Bali": [115.1889, -8.4095],
   "Singapore": [103.8198, 1.3521],
   "Sydney": [151.2093, -33.8688],
   "Jakarta": [106.8456, -6.2088],
-
   "Helsinki": [24.9384, 60.1699],
   "Cebu": [123.8854, 10.3157],
   "Morocco": [-6.8498, 34.0209],
-
   "Asahikawa": [142.3648, 43.7706],
   "Sapporo": [141.3545, 43.0618],
   "Surabaya": [112.7521, -7.2575],
   "Sandakan": [118.1174, 5.8394],
-
   "Switzerland": [7.4474, 46.9480],
   "Inverness": [-4.2247, 57.4778],
   "Nice": [7.2620, 43.7102],
@@ -121,429 +104,144 @@ const CITIES = {
   "Barcelona": [2.1734, 41.3851]
 };
 
-
-/* =========================================================
-   3. Routes
-   ========================================================= */
-
 const educationRoutes = [
-
   ["Urumqi", "Beijing"],
   ["Beijing", "Guangzhou"],
   ["Guangzhou", "Hong Kong"],
   ["Hong Kong", "Chicago"]
-
 ];
 
 const workRoutes = [
-
   ["Beijing", "Shenzhen"],
   ["Shenzhen", "Guangzhou"],
   ["Guangzhou", "Hong Kong"],
   ["Hong Kong", "South Korea"]
-
 ];
 
 const flightRoutes = [
-
-  ["Beijing", "Urumqi"],
-  ["Beijing", "Shenyang"],
-  ["Beijing", "Dalian"],
-  ["Beijing", "Yinchuan"],
-  ["Beijing", "Xi'an"],
-  ["Beijing", "Shanghai"],
-  ["Beijing", "Hangzhou"],
-  ["Beijing", "Nanjing"],
-  ["Beijing", "Wuhan"],
-  ["Beijing", "Changsha"],
-  ["Beijing", "Chongqing"],
-  ["Beijing", "Chengdu"],
-  ["Beijing", "Guangzhou"],
-  ["Beijing", "Shenzhen"],
-  ["Beijing", "Haikou"],
-  ["Beijing", "Sanya"],
-  ["Beijing", "Xiamen"],
-  ["Beijing", "Wenzhou"],
-  ["Beijing", "Zhuhai"],
-
-  ["Beijing", "Prague"],
-  ["Beijing", "Paris"],
-  ["Beijing", "Amsterdam"],
-  ["Beijing", "London"],
-  ["Beijing", "Dubai"],
-  ["Beijing", "Kuala Lumpur"],
-  ["Beijing", "Seoul"],
-  ["Beijing", "Tokyo"],
-  ["Beijing", "Osaka"],
-  ["Beijing", "Vienna"],
-
-  ["Guangzhou", "Urumqi"],
-  ["Guangzhou", "Taipei"],
-  ["Guangzhou", "Hong Kong"],
-  ["Guangzhou", "Los Angeles"],
-  ["Guangzhou", "Bangkok"],
-  ["Guangzhou", "Seoul"],
-  ["Guangzhou", "Kuala Lumpur"],
-  ["Guangzhou", "Bali"],
-  ["Guangzhou", "Singapore"],
-  ["Guangzhou", "Sydney"],
-  ["Guangzhou", "Jakarta"],
-
-  ["Hong Kong", "Seoul"],
-  ["Hong Kong", "Los Angeles"],
-  ["Hong Kong", "Helsinki"],
-  ["Hong Kong", "Cebu"],
-
-  ["Dubai", "Morocco"],
-  ["Asahikawa", "Tokyo"],
-  ["Sapporo", "Shenzhen"],
-  ["Bali", "Surabaya"],
-  ["Kuala Lumpur", "Sandakan"],
-  ["Helsinki", "Switzerland"],
-  ["Switzerland", "Paris"],
-  ["London", "Inverness"],
-  ["Paris", "Nice"],
-  ["Nice", "Rome"],
-  ["Rome", "Barcelona"],
-  ["Barcelona", "Paris"]
-
+  ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
+  ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
+  ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
+  ["Beijing", "Guangzhou"], ["Beijing", "Shenzhen"], ["Beijing", "Haikou"], ["Beijing", "Sanya"],
+  ["Beijing", "Xiamen"], ["Beijing", "Wenzhou"], ["Beijing", "Zhuhai"], ["Beijing", "Prague"],
+  ["Beijing", "Paris"], ["Beijing", "Amsterdam"], ["Beijing", "London"], ["Beijing", "Dubai"],
+  ["Beijing", "Kuala Lumpur"], ["Beijing", "Seoul"], ["Beijing", "Tokyo"], ["Beijing", "Osaka"],
+  ["Beijing", "Vienna"], ["Guangzhou", "Urumqi"], ["Guangzhou", "Taipei"], ["Guangzhou", "Hong Kong"],
+  ["Guangzhou", "Los Angeles"], ["Guangzhou", "Bangkok"], ["Guangzhou", "Seoul"], ["Guangzhou", "Kuala Lumpur"],
+  ["Guangzhou", "Bali"], ["Guangzhou", "Singapore"], ["Guangzhou", "Sydney"], ["Guangzhou", "Jakarta"],
+  ["Hong Kong", "Seoul"], ["Hong Kong", "Los Angeles"], ["Hong Kong", "Helsinki"], ["Hong Kong", "Cebu"],
+  ["Dubai", "Morocco"], ["Asahikawa", "Tokyo"], ["Sapporo", "Shenzhen"], ["Bali", "Surabaya"],
+  ["Kuala Lumpur", "Sandakan"], ["Helsinki", "Switzerland"], ["Switzerland", "Paris"],
+  ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
 ];
 
-
-/* =========================================================
-   4. Convert routes → GeoJSON
-   ========================================================= */
-
-function routeFeatures(routes, color) {
-
+function buildRouteGeoJSON(routes, color) {
   return routes
     .map(([from, to]) => {
-
       const start = CITIES[from];
       const end = CITIES[to];
+      if (!start || !end) return null;
 
-      if (!start || !end) {
-        console.warn("Missing city:", from, to);
-        return null;
-      }
-
-      return {
-        type: "Feature",
-
-        properties: {
-          from: from,
-          to: to,
-          color: color,
-          route: `${from} → ${to}`
-        },
-
-        geometry: {
-          type: "LineString",
-          coordinates: [
-            start,
-            end
-          ]
-        }
+      // 使用 Turf 生成大圆弧线（飞线效果）
+      const curved = turf.greatCircle(start, end, { npoints: 60 });
+      curved.properties = {
+        color: color,
+        route: `${from} → ${to}`
       };
-
+      return curved;
     })
     .filter(Boolean);
 }
 
-
-const routeFeaturesAll = [
-
-  ...routeFeatures(
-    educationRoutes,
-    "#00e1ff"
-  ),
-
-  ...routeFeatures(
-    workRoutes,
-    "#ffaa00"
-  ),
-
-  ...routeFeatures(
-    flightRoutes,
-    "#ec4899"
-  )
-
+const allRoutes = [
+  ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
+  ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
+  ...buildRouteGeoJSON(flightRoutes, "#ec4899")
 ];
 
-
-/* =========================================================
-   5. IMPORTANT: force 2D Mercator
-   ========================================================= */
-
 const map = new mapboxgl.Map({
-
   container: "footprints-map",
-
   style: "mapbox://styles/mapbox/dark-v11",
-
-  center: [105, 35],
-
-  zoom: 3,
-
-  projection: {
-    name: "mercator"
-  },
-
-  attributionControl: true
-
+  center: [60, 30],
+  zoom: 1.8,
+  projection: "mercator"
 });
 
-
-/* =========================================================
-   6. Navigation
-   ========================================================= */
-
-map.addControl(
-  new mapboxgl.NavigationControl(),
-  "top-right"
-);
-
-
-/* =========================================================
-   7. Map loaded
-   ========================================================= */
+map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
 map.on("load", () => {
-
-  console.log("MAP LOADED");
-
-  /*
-   * Force Mercator again.
-   * This is the important part for Mapbox GL JS v3.
-   */
-
-  map.setProjection({
-    name: "mercator"
-  });
-
-
-  /* =======================================================
-     Routes
-     ======================================================= */
-
   map.addSource("routes", {
-
     type: "geojson",
-
-    data: {
-      type: "FeatureCollection",
-      features: routeFeaturesAll
-    }
-
+    data: { type: "FeatureCollection", features: allRoutes }
   });
-
 
   map.addLayer({
-
     id: "route-lines",
-
     type: "line",
-
     source: "routes",
-
-    layout: {
-      "line-cap": "round",
-      "line-join": "round"
-    },
-
+    layout: { "line-cap": "round", "line-join": "round" },
     paint: {
-
-      "line-color": [
-        "get",
-        "color"
-      ],
-
-      "line-width": 2.5,
-
-      "line-opacity": 0.82
-
+      "line-color": ["get", "color"],
+      "line-width": 2,
+      "line-opacity": 0.8
     }
-
   });
-
-
-  /* =======================================================
-     Cities
-     ======================================================= */
 
   const citySet = new Set();
-
-  [
-    ...educationRoutes,
-    ...workRoutes,
-    ...flightRoutes
-
-  ].forEach(([from, to]) => {
-
-    citySet.add(from);
-    citySet.add(to);
-
+  [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(([f, t]) => {
+    citySet.add(f);
+    citySet.add(t);
   });
 
-
-  const cityFeatures = [];
-
-  citySet.forEach(name => {
-
-    if (!CITIES[name]) return;
-
-    cityFeatures.push({
-
-      type: "Feature",
-
-      properties: {
-        name: name
-      },
-
-      geometry: {
-        type: "Point",
-        coordinates: CITIES[name]
-      }
-
-    });
-
-  });
-
+  const cityFeatures = Array.from(citySet)
+    .map(name => {
+      if (!CITIES[name]) return null;
+      return {
+        type: "Feature",
+        properties: { name: name },
+        geometry: { type: "Point", coordinates: CITIES[name] }
+      };
+    })
+    .filter(Boolean);
 
   map.addSource("cities", {
-
     type: "geojson",
-
-    data: {
-
-      type: "FeatureCollection",
-
-      features: cityFeatures
-
-    }
-
+    data: { type: "FeatureCollection", features: cityFeatures }
   });
-
 
   map.addLayer({
-
     id: "city-points",
-
     type: "circle",
-
     source: "cities",
-
     paint: {
-
-      "circle-radius": 5,
-
+      "circle-radius": 4.5,
       "circle-color": "#ffffff",
-
       "circle-stroke-width": 2,
-
       "circle-stroke-color": "#ec4899"
-
     }
-
   });
 
-
-  /* =======================================================
-     Tooltip
-     ======================================================= */
-
-  const tooltip =
-    document.getElementById("tooltip");
-
-
-  map.on(
-    "mouseenter",
-    "city-points",
-    () => {
-
-      map.getCanvas().style.cursor =
-        "pointer";
-
-    }
-  );
-
-
-  map.on(
-    "mousemove",
-    "city-points",
-    event => {
-
-      if (!event.features.length) return;
-
-      const name =
-        event.features[0].properties.name;
-
-      tooltip.style.display = "block";
-
-      tooltip.style.left =
-        `${event.point.x + 12}px`;
-
-      tooltip.style.top =
-        `${event.point.y + 12}px`;
-
-      tooltip.innerHTML =
-        `<strong>${name}</strong>`;
-
-    }
-  );
-
-
-  map.on(
-    "mouseleave",
-    "city-points",
-    () => {
-
-      map.getCanvas().style.cursor = "";
-
-      tooltip.style.display = "none";
-
-    }
-  );
-
-
-  /* =======================================================
-     Fit map to all routes
-     ======================================================= */
-
-  const bounds =
-    new mapboxgl.LngLatBounds();
-
-  cityFeatures.forEach(feature => {
-
-    bounds.extend(
-      feature.geometry.coordinates
-    );
-
+  const tooltip = document.getElementById("tooltip");
+  
+  map.on("mouseenter", "city-points", () => {
+    map.getCanvas().style.cursor = "pointer";
   });
 
+  map.on("mouseleave", "city-points", () => {
+    map.getCanvas().style.cursor = "";
+    tooltip.style.display = "none";
+  });
 
-  map.fitBounds(
-    bounds,
-    {
-      padding: 70,
-      duration: 1200,
-      maxZoom: 4
-    }
-  );
-
+  map.on("mousemove", "city-points", (e) => {
+    if (!e.features.length) return;
+    tooltip.style.display = "block";
+    tooltip.style.left = `${e.point.x}px`;
+    tooltip.style.top = `${e.point.y}px`;
+    tooltip.innerHTML = `<strong>${e.features[0].properties.name}</strong>`;
+  });
 });
 
-
-/* =========================================================
-   8. Error debugging
-   ========================================================= */
-
-map.on("error", event => {
-
-  console.error(
-    "MAPBOX ERROR:",
-    event
-  );
-
+map.on("error", (e) => {
+  console.error("MAPBOX ERROR:", e);
 });
 </script>
