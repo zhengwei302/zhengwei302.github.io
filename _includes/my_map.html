@@ -1,17 +1,14 @@
 ---
 layout: page
-title: 足迹
+title: Footprints
 permalink: /footprints/
-description: 个人旅行、参加会议以及在世界各地进行研究访问。
+description: Personal travel, conference visits, and research stays around the world.
 nav: true
 nav_order: 5
 ---
 
-<link
-  href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css"
-  rel="stylesheet"
-/>
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
 <style>
@@ -25,14 +22,10 @@ nav_order: 5
     background: #0b1120;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
-
   #footprints-map {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
   }
-
   .map-tooltip {
     position: absolute;
     z-index: 100;
@@ -54,9 +47,8 @@ nav_order: 5
   <div id="tooltip" class="map-tooltip"></div>
 </div>
 
-{% raw %}
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", function() {
   mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
 
   const CITIES = {
@@ -115,17 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const educationRoutes = [
-    ["Urumqi", "Beijing"],
-    ["Beijing", "Guangzhou"],
-    ["Guangzhou", "Hong Kong"],
-    ["Hong Kong", "Chicago"]
+    ["Urumqi", "Beijing"], ["Beijing", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "Chicago"]
   ];
 
   const workRoutes = [
-    ["Beijing", "Shenzhen"],
-    ["Shenzhen", "Guangzhou"],
-    ["Guangzhou", "Hong Kong"],
-    ["Hong Kong", "South Korea"]
+    ["Beijing", "Shenzhen"], ["Shenzhen", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "South Korea"]
   ];
 
   const flightRoutes = [
@@ -146,47 +132,42 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function buildRouteGeoJSON(routes, color) {
-    return routes
-      .map(([from, to]) => {
-        const start = CITIES[from];
-        const end = CITIES[to];
-        if (!start || !end) return null;
-
-        try {
-          const curved = turf.greatCircle(start, end, { npoints: 60 });
-          curved.properties = {
-            color: color,
-            route: `${from} → ${to}`
-          };
-          return curved;
-        } catch (e) {
-          return {
-            type: "Feature",
-            properties: { color: color, route: `${from} → ${to}` },
-            geometry: { type: "LineString", coordinates: [start, end] }
-          };
-        }
-      })
-      .filter(Boolean);
+    return routes.map(function(item) {
+      var from = item[0];
+      var to = item[1];
+      var start = CITIES[from];
+      var end = CITIES[to];
+      if (!start || !end) return null;
+      try {
+        var curved = turf.greatCircle(start, end, { npoints: 60 });
+        curved.properties = { color: color, route: from + " → " + to };
+        return curved;
+      } catch (e) {
+        return {
+          type: "Feature",
+          properties: { color: color, route: from + " → " + to },
+          geometry: { type: "LineString", coordinates: [start, end] }
+        };
+      }
+    }).filter(Boolean);
   }
 
-  const allRoutes = [
-    ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
-    ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
-    ...buildRouteGeoJSON(flightRoutes, "#ec4899")
-  ];
+  var allRoutes = [].concat(
+    buildRouteGeoJSON(educationRoutes, "#00e1ff"),
+    buildRouteGeoJSON(workRoutes, "#ffaa00"),
+    buildRouteGeoJSON(flightRoutes, "#ec4899")
+  );
 
-  const map = new mapboxgl.Map({
+  var map = new mapboxgl.Map({
     container: "footprints-map",
     style: "mapbox://styles/mapbox/dark-v11",
     center: [50, 30],
-    zoom: 1.5,
-    projection: "mercator"
+    zoom: 1.5
   });
 
   map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-  map.on("load", () => {
+  map.on("load", function() {
     map.resize();
 
     map.addSource("routes", {
@@ -202,26 +183,24 @@ document.addEventListener("DOMContentLoaded", () => {
       paint: {
         "line-color": ["get", "color"],
         "line-width": 2,
-        "line-opacity": 0.8
+        "line-opacity": 0.85
       }
     });
 
-    const citySet = new Set();
-    [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(([f, t]) => {
-      citySet.add(f);
-      citySet.add(t);
+    var cityMap = {};
+    educationRoutes.concat(workRoutes, flightRoutes).forEach(function(item) {
+      cityMap[item[0]] = true;
+      cityMap[item[1]] = true;
     });
 
-    const cityFeatures = Array.from(citySet)
-      .map(name => {
-        if (!CITIES[name]) return null;
-        return {
-          type: "Feature",
-          properties: { name: name },
-          geometry: { type: "Point", coordinates: CITIES[name] }
-        };
-      })
-      .filter(Boolean);
+    var cityFeatures = Object.keys(cityMap).map(function(name) {
+      if (!CITIES[name]) return null;
+      return {
+        type: "Feature",
+        properties: { name: name },
+        geometry: { type: "Point", coordinates: CITIES[name] }
+      };
+    }).filter(Boolean);
 
     map.addSource("cities", {
       type: "geojson",
@@ -240,29 +219,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    const tooltip = document.getElementById("tooltip");
-    
-    map.on("mouseenter", "city-points", () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-
-    map.on("mouseleave", "city-points", () => {
+    var tooltip = document.getElementById("tooltip");
+    map.on("mouseenter", "city-points", function() { map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "city-points", function() {
       map.getCanvas().style.cursor = "";
       tooltip.style.display = "none";
     });
-
-    map.on("mousemove", "city-points", (e) => {
+    map.on("mousemove", "city-points", function(e) {
       if (!e.features.length) return;
       tooltip.style.display = "block";
-      tooltip.style.left = `${e.point.x}px`;
-      tooltip.style.top = `${e.point.y}px`;
-      tooltip.innerHTML = `<strong>${e.features[0].properties.name}</strong>`;
+      tooltip.style.left = e.point.x + "px";
+      tooltip.style.top = e.point.y + "px";
+      tooltip.innerHTML = "<strong>" + e.features[0].properties.name + "</strong>";
     });
-  });
-
-  map.on("error", (e) => {
-    console.error("MAPBOX ERROR:", e);
   });
 });
 </script>
-{% endraw %}
