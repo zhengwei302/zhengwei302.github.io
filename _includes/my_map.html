@@ -1,16 +1,15 @@
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
 <style>
   #footprints-map-container {
     width: 100%;
-    height: 600px;
+    height: 580px;
     position: relative;
     border-radius: 12px;
     overflow: hidden;
     margin: 20px 0;
-    background: #191a1a;
+    background-color: #191a1a;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
   #footprints-map {
@@ -39,8 +38,12 @@
 </div>
 
 <script>
-  (function initMap() {
+(function() {
+  function renderMap() {
     mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
+    
+    // 关键修复：绕过 CSP 的 blob worker 限制
+    mapboxgl.workerUrl = "https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl-csp-worker.js";
 
     const CITIES = {
       "Urumqi": [87.6177, 43.7928], "Beijing": [116.4074, 39.9042], "Guangzhou": [113.2644, 23.1291],
@@ -88,29 +91,23 @@
       ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
     ];
 
-    function buildRouteGeoJSON(routes, color) {
-      return routes.map(function(item) {
-        const start = CITIES[item[0]];
-        const end = CITIES[item[1]];
-        if (!start || !end) return null;
-        try {
-          const curved = turf.greatCircle(start, end, { npoints: 60 });
-          curved.properties = { color: color, route: item[0] + " → " + item[1] };
-          return curved;
-        } catch (e) {
-          return {
-            type: "Feature",
-            properties: { color: color, route: item[0] + " → " + item[1] },
-            geometry: { type: "LineString", coordinates: [start, end] }
-          };
-        }
+    function toGeoJSON(routes, color) {
+      return routes.map(function(r) {
+        const p1 = CITIES[r[0]];
+        const p2 = CITIES[r[1]];
+        if (!p1 || !p2) return null;
+        return {
+          type: "Feature",
+          properties: { color: color, name: r[0] + " → " + r[1] },
+          geometry: { type: "LineString", coordinates: [p1, p2] }
+        };
       }).filter(Boolean);
     }
 
-    const allRoutes = [
-      ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
-      ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
-      ...buildRouteGeoJSON(flightRoutes, "#ec4899")
+    const allLines = [
+      ...toGeoJSON(educationRoutes, "#00e1ff"),
+      ...toGeoJSON(workRoutes, "#ffaa00"),
+      ...toGeoJSON(flightRoutes, "#ec4899")
     ];
 
     const map = new mapboxgl.Map({
@@ -125,15 +122,15 @@
     map.on("load", function() {
       map.resize();
 
-      map.addSource("routes", {
+      map.addSource("routes-src", {
         type: "geojson",
-        data: { type: "FeatureCollection", features: allRoutes }
+        data: { type: "FeatureCollection", features: allLines }
       });
 
       map.addLayer({
-        id: "route-lines",
+        id: "routes-layer",
         type: "line",
-        source: "routes",
+        source: "routes-src",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": ["get", "color"],
@@ -142,13 +139,13 @@
         }
       });
 
-      const cityMap = {};
+      const citySet = new Set();
       [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(function(item) {
-        cityMap[item[0]] = true;
-        cityMap[item[1]] = true;
+        citySet.add(item[0]);
+        citySet.add(item[1]);
       });
 
-      const cityFeatures = Object.keys(cityMap).map(function(name) {
+      const cityPoints = Array.from(citySet).map(function(name) {
         if (!CITIES[name]) return null;
         return {
           type: "Feature",
@@ -157,15 +154,15 @@
         };
       }).filter(Boolean);
 
-      map.addSource("cities", {
+      map.addSource("cities-src", {
         type: "geojson",
-        data: { type: "FeatureCollection", features: cityFeatures }
+        data: { type: "FeatureCollection", features: cityPoints }
       });
 
       map.addLayer({
-        id: "city-points",
+        id: "cities-layer",
         type: "circle",
-        source: "cities",
+        source: "cities-src",
         paint: {
           "circle-radius": 4.5,
           "circle-color": "#ffffff",
@@ -175,12 +172,12 @@
       });
 
       const tooltip = document.getElementById("tooltip");
-      map.on("mouseenter", "city-points", function() { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "city-points", function() {
+      map.on("mouseenter", "cities-layer", function() { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", "cities-layer", function() {
         map.getCanvas().style.cursor = "";
         tooltip.style.display = "none";
       });
-      map.on("mousemove", "city-points", function(e) {
+      map.on("mousemove", "cities-layer", function(e) {
         if (!e.features.length) return;
         tooltip.style.display = "block";
         tooltip.style.left = e.point.x + "px";
@@ -188,5 +185,14 @@
         tooltip.innerHTML = "<strong>" + e.features[0].properties.name + "</strong>";
       });
     });
-  })();
+
+    window.addEventListener("resize", function() { map.resize(); });
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    renderMap();
+  } else {
+    document.addEventListener("DOMContentLoaded", renderMap);
+  }
+})();
 </script>
