@@ -1,3 +1,4 @@
+{% raw %}
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
@@ -9,7 +10,7 @@
     border-radius: 12px;
     overflow: hidden;
     margin: 20px 0;
-    background-color: #191a1a;
+    background: #0f172a;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
   #footprints-map {
@@ -39,13 +40,17 @@
 
 <script>
 (function() {
-  function renderMap() {
+  function startMap() {
+    if (typeof mapboxgl === "undefined") {
+      setTimeout(startMap, 100);
+      return;
+    }
+
     mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
-    
-    // 关键修复：绕过 CSP 的 blob worker 限制
+    // 强制使用远程 worker 绕过 CSP blob 拦截
     mapboxgl.workerUrl = "https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl-csp-worker.js";
 
-    const CITIES = {
+    var CITIES = {
       "Urumqi": [87.6177, 43.7928], "Beijing": [116.4074, 39.9042], "Guangzhou": [113.2644, 23.1291],
       "Hong Kong": [114.1694, 22.3193], "Chicago": [-87.6298, 41.8781], "Shenzhen": [114.0579, 22.5431],
       "South Korea": [127.3845, 36.3504], "Shenyang": [123.4315, 41.8057], "Dalian": [121.6147, 38.9140],
@@ -66,15 +71,15 @@
       "Barcelona": [2.1734, 41.3851]
     };
 
-    const educationRoutes = [
+    var educationRoutes = [
       ["Urumqi", "Beijing"], ["Beijing", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "Chicago"]
     ];
 
-    const workRoutes = [
+    var workRoutes = [
       ["Beijing", "Shenzhen"], ["Shenzhen", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "South Korea"]
     ];
 
-    const flightRoutes = [
+    var flightRoutes = [
       ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
       ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
       ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
@@ -91,26 +96,51 @@
       ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
     ];
 
-    function toGeoJSON(routes, color) {
-      return routes.map(function(r) {
-        const p1 = CITIES[r[0]];
-        const p2 = CITIES[r[1]];
-        if (!p1 || !p2) return null;
-        return {
-          type: "Feature",
-          properties: { color: color, name: r[0] + " → " + r[1] },
-          geometry: { type: "LineString", coordinates: [p1, p2] }
-        };
-      }).filter(Boolean);
+    function createCurvedLine(start, end) {
+      var coords = [];
+      var points = 40;
+      var lngDiff = end[0] - start[0];
+      var latDiff = end[1] - start[1];
+      var midLng = (start[0] + end[0]) / 2;
+      var midLat = (start[1] + end[1]) / 2 + Math.min(Math.abs(lngDiff) * 0.1, 15);
+      
+      for (var i = 0; i <= points; i++) {
+        var t = i / points;
+        var lat = (1 - t) * (1 - t) * start[1] + 2 * (1 - t) * t * midLat + t * t * end[1];
+        var lng = (1 - t) * (1 - t) * start[0] + 2 * (1 - t) * t * midLng + t * t * end[0];
+        coords.push([lng, lat]);
+      }
+      return coords;
     }
 
-    const allLines = [
-      ...toGeoJSON(educationRoutes, "#00e1ff"),
-      ...toGeoJSON(workRoutes, "#ffaa00"),
-      ...toGeoJSON(flightRoutes, "#ec4899")
-    ];
+    function buildRouteFeatures(routes, color) {
+      var features = [];
+      for (var i = 0; i < routes.length; i++) {
+        var from = routes[i][0];
+        var to = routes[i][1];
+        var start = CITIES[from];
+        var end = CITIES[to];
+        if (start && end) {
+          features.push({
+            type: "Feature",
+            properties: { color: color, name: from + " → " + to },
+            geometry: {
+              type: "LineString",
+              coordinates: createCurvedLine(start, end)
+            }
+          });
+        }
+      }
+      return features;
+    }
 
-    const map = new mapboxgl.Map({
+    var allRouteFeatures = [].concat(
+      buildRouteFeatures(educationRoutes, "#00e1ff"),
+      buildRouteFeatures(workRoutes, "#ffaa00"),
+      buildRouteFeatures(flightRoutes, "#ec4899")
+    );
+
+    var map = new mapboxgl.Map({
       container: "footprints-map",
       style: "mapbox://styles/mapbox/dark-v10",
       center: [50, 30],
@@ -122,56 +152,59 @@
     map.on("load", function() {
       map.resize();
 
-      map.addSource("routes-src", {
+      map.addSource("routes-data", {
         type: "geojson",
-        data: { type: "FeatureCollection", features: allLines }
+        data: { type: "FeatureCollection", features: allRouteFeatures }
       });
 
       map.addLayer({
         id: "routes-layer",
         type: "line",
-        source: "routes-src",
+        source: "routes-data",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
           "line-color": ["get", "color"],
           "line-width": 2,
-          "line-opacity": 0.85
+          "line-opacity": 0.8
         }
       });
 
-      const citySet = new Set();
-      [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(function(item) {
-        citySet.add(item[0]);
-        citySet.add(item[1]);
-      });
+      var citySet = {};
+      var allPairs = educationRoutes.concat(workRoutes, flightRoutes);
+      for (var j = 0; j < allPairs.length; j++) {
+        citySet[allPairs[j][0]] = true;
+        citySet[allPairs[j][1]] = true;
+      }
 
-      const cityPoints = Array.from(citySet).map(function(name) {
-        if (!CITIES[name]) return null;
-        return {
-          type: "Feature",
-          properties: { name: name },
-          geometry: { type: "Point", coordinates: CITIES[name] }
-        };
-      }).filter(Boolean);
+      var cityFeatures = [];
+      for (var cityName in citySet) {
+        if (CITIES[cityName]) {
+          cityFeatures.push({
+            type: "Feature",
+            properties: { name: cityName },
+            geometry: { type: "Point", coordinates: CITIES[cityName] }
+          });
+        }
+      }
 
-      map.addSource("cities-src", {
+      map.addSource("cities-data", {
         type: "geojson",
-        data: { type: "FeatureCollection", features: cityPoints }
+        data: { type: "FeatureCollection", features: cityFeatures }
       });
 
       map.addLayer({
         id: "cities-layer",
         type: "circle",
-        source: "cities-src",
+        source: "cities-data",
         paint: {
-          "circle-radius": 4.5,
+          "circle-radius": 4,
           "circle-color": "#ffffff",
           "circle-stroke-width": 2,
           "circle-stroke-color": "#ec4899"
         }
       });
 
-      const tooltip = document.getElementById("tooltip");
+      var tooltip = document.getElementById("tooltip");
       map.on("mouseenter", "cities-layer", function() { map.getCanvas().style.cursor = "pointer"; });
       map.on("mouseleave", "cities-layer", function() {
         map.getCanvas().style.cursor = "";
@@ -185,14 +218,13 @@
         tooltip.innerHTML = "<strong>" + e.features[0].properties.name + "</strong>";
       });
     });
-
-    window.addEventListener("resize", function() { map.resize(); });
   }
 
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    renderMap();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startMap);
   } else {
-    document.addEventListener("DOMContentLoaded", renderMap);
+    startMap();
   }
 })();
 </script>
+{% endraw %}
