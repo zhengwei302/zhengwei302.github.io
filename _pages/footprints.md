@@ -7,4 +7,4 @@ nav: true
 nav_order: 5
 ---
 
-{% include footprints_map.html %}
+{% include my_map.html %}
