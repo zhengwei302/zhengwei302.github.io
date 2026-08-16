@@ -1,74 +1,69 @@
 {% raw %}
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" />
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<!-- 引入轻量、零 Worker、完全符合 CSP 的 Leaflet 地图库 -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
   #footprints-map-container {
-    width: 100%;
-    height: 580px;
-    position: relative;
+    width: 100% !important;
+    height: 580px !important;
+    position: relative !important;
     border-radius: 12px;
     overflow: hidden;
     margin: 20px 0;
-    background: #0f172a;
+    background: #0b0f19;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
   #footprints-map {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
+    background: #0b0f19;
   }
-  .map-tooltip {
-    position: absolute;
-    z-index: 1000;
-    background: rgba(15, 23, 42, 0.95);
-    color: #f8fafc;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    pointer-events: none;
-    display: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    transform: translate(12px, 12px);
+  /* 自定义 Leaflet 暗色提示框 */
+  .leaflet-popup-content-wrapper {
+    background: rgba(15, 23, 42, 0.92) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+  }
+  .leaflet-popup-tip {
+    background: rgba(15, 23, 42, 0.92) !important;
   }
 </style>
 
 <div id="footprints-map-container">
   <div id="footprints-map"></div>
-  <div id="tooltip" class="map-tooltip"></div>
 </div>
 
 <script>
 (function() {
-  function startMap() {
-    if (typeof mapboxgl === "undefined") {
-      setTimeout(startMap, 100);
+  function initLeafletMap() {
+    if (typeof L === "undefined") {
+      setTimeout(initLeafletMap, 50);
       return;
     }
 
-    mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
-    // 强制使用远程 worker 绕过 CSP blob 拦截
-    mapboxgl.workerUrl = "https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl-csp-worker.js";
-
+    // 城市坐标映射 (Leaflet 格式为 [lat, lng])
     var CITIES = {
-      "Urumqi": [87.6177, 43.7928], "Beijing": [116.4074, 39.9042], "Guangzhou": [113.2644, 23.1291],
-      "Hong Kong": [114.1694, 22.3193], "Chicago": [-87.6298, 41.8781], "Shenzhen": [114.0579, 22.5431],
-      "South Korea": [127.3845, 36.3504], "Shenyang": [123.4315, 41.8057], "Dalian": [121.6147, 38.9140],
-      "Yinchuan": [106.2781, 38.4664], "Xi'an": [108.9398, 34.3416], "Shanghai": [121.4737, 31.2304],
-      "Hangzhou": [120.1551, 30.2741], "Nanjing": [118.7969, 32.0603], "Wuhan": [114.3055, 30.5928],
-      "Changsha": [112.9388, 28.2282], "Chongqing": [106.5516, 29.5630], "Chengdu": [104.0668, 30.5728],
-      "Haikou": [110.3312, 20.0311], "Sanya": [109.5119, 18.2528], "Xiamen": [118.0894, 24.4798],
-      "Wenzhou": [120.6994, 28.0006], "Zhuhai": [113.5767, 22.2707], "Prague": [14.4378, 50.0755],
-      "Paris": [2.3522, 48.8566], "Amsterdam": [4.9041, 52.3676], "London": [-0.1276, 51.5074],
-      "Dubai": [55.2708, 25.2048], "Kuala Lumpur": [101.6869, 3.1390], "Seoul": [126.9780, 37.5665],
-      "Tokyo": [139.6917, 35.6895], "Osaka": [135.5023, 34.6937], "Vienna": [16.3738, 48.2082],
-      "Taipei": [121.5654, 25.0330], "Los Angeles": [-118.2437, 34.0522], "Bangkok": [100.5018, 13.7563],
-      "Bali": [115.1889, -8.4095], "Singapore": [103.8198, 1.3521], "Sydney": [151.2093, -33.8688],
-      "Jakarta": [106.8456, -6.2088], "Helsinki": [24.9384, 60.1699], "Cebu": [123.8854, 10.3157],
-      "Morocco": [-6.8498, 34.0209], "Asahikawa": [142.3648, 43.7706], "Sapporo": [141.3545, 43.0618],
-      "Surabaya": [112.7521, -7.2575], "Sandakan": [118.1174, 5.8394], "Switzerland": [7.4474, 46.9480],
-      "Inverness": [-4.2247, 57.4778], "Nice": [7.2620, 43.7102], "Rome": [12.4964, 41.9028],
-      "Barcelona": [2.1734, 41.3851]
+      "Urumqi": [43.7928, 87.6177], "Beijing": [39.9042, 116.4074], "Guangzhou": [23.1291, 113.2644],
+      "Hong Kong": [22.3193, 114.1694], "Chicago": [41.8781, -87.6298], "Shenzhen": [22.5431, 114.0579],
+      "South Korea": [36.3504, 127.3845], "Shenyang": [41.8057, 123.4315], "Dalian": [38.9140, 121.6147],
+      "Yinchuan": [38.4664, 106.2781], "Xi'an": [34.3416, 108.9398], "Shanghai": [31.2304, 121.4737],
+      "Hangzhou": [30.2741, 120.1551], "Nanjing": [32.0603, 118.7969], "Wuhan": [30.5928, 114.3055],
+      "Changsha": [28.2282, 112.9388], "Chongqing": [29.5630, 106.5516], "Chengdu": [30.5728, 104.0668],
+      "Haikou": [20.0311, 110.3312], "Sanya": [18.2528, 109.5119], "Xiamen": [24.4798, 118.0894],
+      "Wenzhou": [28.0006, 120.6994], "Zhuhai": [22.2707, 113.5767], "Prague": [50.0755, 14.4378],
+      "Paris": [48.8566, 2.3522], "Amsterdam": [52.3676, 4.9041], "London": [51.5074, -0.1276],
+      "Dubai": [25.2048, 55.2708], "Kuala Lumpur": [3.1390, 101.6869], "Seoul": [37.5665, 126.9780],
+      "Tokyo": [35.6895, 139.6917], "Osaka": [34.6937, 135.5023], "Vienna": [48.2082, 16.3738],
+      "Taipei": [25.0330, 121.5654], "Los Angeles": [34.0522, -118.2437], "Bangkok": [13.7563, 100.5018],
+      "Bali": [-8.4095, 115.1889], "Singapore": [1.3521, 103.8198], "Sydney": [-33.8688, 151.2093],
+      "Jakarta": [-6.2088, 106.8456], "Helsinki": [60.1699, 24.9384], "Cebu": [10.3157, 123.8854],
+      "Morocco": [34.0209, -6.8498], "Asahikawa": [43.7706, 142.3648], "Sapporo": [43.0618, 141.3545],
+      "Surabaya": [-7.2575, 112.7521], "Sandakan": [5.8394, 118.1174], "Switzerland": [46.9480, 7.4474],
+      "Inverness": [57.4778, -4.2247], "Nice": [43.7102, 7.2620], "Rome": [41.9028, 12.4964],
+      "Barcelona": [41.3851, 2.1734]
     };
 
     var educationRoutes = [
@@ -96,134 +91,91 @@
       ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
     ];
 
-    function createCurvedLine(start, end) {
-      var coords = [];
-      var points = 40;
-      var lngDiff = end[0] - start[0];
-      var latDiff = end[1] - start[1];
-      var midLng = (start[0] + end[0]) / 2;
-      var midLat = (start[1] + end[1]) / 2 + Math.min(Math.abs(lngDiff) * 0.1, 15);
-      
-      for (var i = 0; i <= points; i++) {
-        var t = i / points;
-        var lat = (1 - t) * (1 - t) * start[1] + 2 * (1 - t) * t * midLat + t * t * end[1];
-        var lng = (1 - t) * (1 - t) * start[0] + 2 * (1 - t) * t * midLng + t * t * end[0];
-        coords.push([lng, lat]);
-      }
-      return coords;
-    }
-
-    function buildRouteFeatures(routes, color) {
-      var features = [];
-      for (var i = 0; i < routes.length; i++) {
-        var from = routes[i][0];
-        var to = routes[i][1];
-        var start = CITIES[from];
-        var end = CITIES[to];
-        if (start && end) {
-          features.push({
-            type: "Feature",
-            properties: { color: color, name: from + " → " + to },
-            geometry: {
-              type: "LineString",
-              coordinates: createCurvedLine(start, end)
-            }
-          });
-        }
-      }
-      return features;
-    }
-
-    var allRouteFeatures = [].concat(
-      buildRouteFeatures(educationRoutes, "#00e1ff"),
-      buildRouteFeatures(workRoutes, "#ffaa00"),
-      buildRouteFeatures(flightRoutes, "#ec4899")
-    );
-
-    var map = new mapboxgl.Map({
-      container: "footprints-map",
-      style: "mapbox://styles/mapbox/dark-v10",
-      center: [50, 30],
-      zoom: 1.5
+    // 初始化暗色地图
+    var map = L.map("footprints-map", {
+      center: [28, 45],
+      zoom: 2,
+      minZoom: 1,
+      maxZoom: 10,
+      zoomControl: true
     });
 
-    map.addControl(new mapboxgl.NavigationControl(), "top-right");
+    // 高品质暗黑底图（CartoDB Dark Matter，全球快速直连且免 Token）
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      attribution: '&copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: "abcd",
+      maxZoom: 19
+    }).addTo(map);
 
-    map.on("load", function() {
-      map.resize();
-
-      map.addSource("routes-data", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: allRouteFeatures }
-      });
-
-      map.addLayer({
-        id: "routes-layer",
-        type: "line",
-        source: "routes-data",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: {
-          "line-color": ["get", "color"],
-          "line-width": 2,
-          "line-opacity": 0.8
-        }
-      });
-
-      var citySet = {};
-      var allPairs = educationRoutes.concat(workRoutes, flightRoutes);
-      for (var j = 0; j < allPairs.length; j++) {
-        citySet[allPairs[j][0]] = true;
-        citySet[allPairs[j][1]] = true;
+    // 贝塞尔曲线算法（绘制优美弧线）
+    function getCurvedPath(p1, p2) {
+      var lat1 = p1[0], lng1 = p1[1];
+      var lat2 = p2[0], lng2 = p2[1];
+      var midLat = (lat1 + lat2) / 2 + Math.min(Math.abs(lng2 - lng1) * 0.08, 12);
+      var midLng = (lng1 + lng2) / 2;
+      var points = [];
+      for (var t = 0; t <= 1; t += 0.03) {
+        var lat = (1 - t) * (1 - t) * lat1 + 2 * (1 - t) * t * midLat + t * t * lat2;
+        var lng = (1 - t) * (1 - t) * lng1 + 2 * (1 - t) * t * midLng + t * t * lng2;
+        points.push([lat, lng]);
       }
+      return points;
+    }
 
-      var cityFeatures = [];
-      for (var cityName in citySet) {
-        if (CITIES[cityName]) {
-          cityFeatures.push({
-            type: "Feature",
-            properties: { name: cityName },
-            geometry: { type: "Point", coordinates: CITIES[cityName] }
-          });
-        }
-      }
-
-      map.addSource("cities-data", {
-        type: "geojson",
-        data: { type: "FeatureCollection", features: cityFeatures }
-      });
-
-      map.addLayer({
-        id: "cities-layer",
-        type: "circle",
-        source: "cities-data",
-        paint: {
-          "circle-radius": 4,
-          "circle-color": "#ffffff",
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#ec4899"
+    function renderLines(routes, color) {
+      routes.forEach(function(r) {
+        var from = CITIES[r[0]];
+        var to = CITIES[r[1]];
+        if (from && to) {
+          var path = getCurvedPath(from, to);
+          L.polyline(path, {
+            color: color,
+            weight: 2,
+            opacity: 0.75,
+            smoothFactor: 1
+          }).addTo(map).bindPopup("<strong>" + r[0] + " → " + r[1] + "</strong>");
         }
       });
+    }
 
-      var tooltip = document.getElementById("tooltip");
-      map.on("mouseenter", "cities-layer", function() { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "cities-layer", function() {
-        map.getCanvas().style.cursor = "";
-        tooltip.style.display = "none";
-      });
-      map.on("mousemove", "cities-layer", function(e) {
-        if (!e.features.length) return;
-        tooltip.style.display = "block";
-        tooltip.style.left = e.point.x + "px";
-        tooltip.style.top = e.point.y + "px";
-        tooltip.innerHTML = "<strong>" + e.features[0].properties.name + "</strong>";
-      });
+    // 绘制三组航线
+    renderLines(educationRoutes, "#00e1ff"); // 教育：青蓝
+    renderLines(workRoutes, "#ffaa00");      // 工作：金黄
+    renderLines(flightRoutes, "#ec4899");    // 访问/飞行：粉红
+
+    // 绘制所有城市圆点
+    var allCityNames = {};
+    educationRoutes.concat(workRoutes, flightRoutes).forEach(function(r) {
+      allCityNames[r[0]] = true;
+      allCityNames[r[1]] = true;
     });
+
+    Object.keys(allCityNames).forEach(function(name) {
+      var pos = CITIES[name];
+      if (pos) {
+        L.circleMarker(pos, {
+          radius: 4.5,
+          fillColor: "#ffffff",
+          color: "#ec4899",
+          weight: 2,
+          opacity: 1,
+          fillOpacity: 1
+        }).addTo(map).bindTooltip("<strong>" + name + "</strong>", {
+          direction: "top",
+          offset: [0, -5]
+        });
+      }
+    });
+
+    setTimeout(function() {
+      map.invalidateSize();
+    }, 200);
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", startMap);
+    document.addEventListener("DOMContentLoaded", initLeafletMap);
   } else {
-    startMap();
+    initLeafletMap();
   }
 })();
 </script>
