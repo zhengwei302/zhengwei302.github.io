@@ -4,7 +4,7 @@
   }
 </style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://zhengwei302.github.io/footprints/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
     initTheme();
-  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <hr> <p>layout: page title: 足迹 permalink: /footprints/ description: 个人旅行、参加会议以及在世界各地进行研究访问。 nav: true nav_order: 5 —</p> <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet"> <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script> <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script> <style>
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <hr> <p>layout: page title: Footprints permalink: /footprints/ description: Personal travel, conference visits, and research stays around the world. nav: true nav_order: 5 —</p> <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"> <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script> <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script> <style>
   #footprints-map-container {
     width: 100%;
     height: 580px;
@@ -15,14 +15,10 @@
     background: #0b1120;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   }
-
   #footprints-map {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
   }
-
   .map-tooltip {
     position: absolute;
     z-index: 100;
@@ -38,7 +34,7 @@
     transform: translate(12px, 12px);
   }
 </style> <div id="footprints-map-container"> <div id="footprints-map"></div> <div id="tooltip" class="map-tooltip"></div> </div> <script>
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", function() {
   mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
 
   const CITIES = {
@@ -97,17 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const educationRoutes = [
-    ["Urumqi", "Beijing"],
-    ["Beijing", "Guangzhou"],
-    ["Guangzhou", "Hong Kong"],
-    ["Hong Kong", "Chicago"]
+    ["Urumqi", "Beijing"], ["Beijing", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "Chicago"]
   ];
 
   const workRoutes = [
-    ["Beijing", "Shenzhen"],
-    ["Shenzhen", "Guangzhou"],
-    ["Guangzhou", "Hong Kong"],
-    ["Hong Kong", "South Korea"]
+    ["Beijing", "Shenzhen"], ["Shenzhen", "Guangzhou"], ["Guangzhou", "Hong Kong"], ["Hong Kong", "South Korea"]
   ];
 
   const flightRoutes = [
@@ -128,47 +118,42 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function buildRouteGeoJSON(routes, color) {
-    return routes
-      .map(([from, to]) => {
-        const start = CITIES[from];
-        const end = CITIES[to];
-        if (!start || !end) return null;
-
-        try {
-          const curved = turf.greatCircle(start, end, { npoints: 60 });
-          curved.properties = {
-            color: color,
-            route: `${from} → ${to}`
-          };
-          return curved;
-        } catch (e) {
-          return {
-            type: "Feature",
-            properties: { color: color, route: `${from} → ${to}` },
-            geometry: { type: "LineString", coordinates: [start, end] }
-          };
-        }
-      })
-      .filter(Boolean);
+    return routes.map(function(item) {
+      var from = item[0];
+      var to = item[1];
+      var start = CITIES[from];
+      var end = CITIES[to];
+      if (!start || !end) return null;
+      try {
+        var curved = turf.greatCircle(start, end, { npoints: 60 });
+        curved.properties = { color: color, route: from + " → " + to };
+        return curved;
+      } catch (e) {
+        return {
+          type: "Feature",
+          properties: { color: color, route: from + " → " + to },
+          geometry: { type: "LineString", coordinates: [start, end] }
+        };
+      }
+    }).filter(Boolean);
   }
 
-  const allRoutes = [
-    ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
-    ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
-    ...buildRouteGeoJSON(flightRoutes, "#ec4899")
-  ];
+  var allRoutes = [].concat(
+    buildRouteGeoJSON(educationRoutes, "#00e1ff"),
+    buildRouteGeoJSON(workRoutes, "#ffaa00"),
+    buildRouteGeoJSON(flightRoutes, "#ec4899")
+  );
 
-  const map = new mapboxgl.Map({
+  var map = new mapboxgl.Map({
     container: "footprints-map",
     style: "mapbox://styles/mapbox/dark-v11",
     center: [50, 30],
-    zoom: 1.5,
-    projection: "mercator"
+    zoom: 1.5
   });
 
   map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-  map.on("load", () => {
+  map.on("load", function() {
     map.resize();
 
     map.addSource("routes", {
@@ -184,26 +169,24 @@ document.addEventListener("DOMContentLoaded", () => {
       paint: {
         "line-color": ["get", "color"],
         "line-width": 2,
-        "line-opacity": 0.8
+        "line-opacity": 0.85
       }
     });
 
-    const citySet = new Set();
-    [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(([f, t]) => {
-      citySet.add(f);
-      citySet.add(t);
+    var cityMap = {};
+    educationRoutes.concat(workRoutes, flightRoutes).forEach(function(item) {
+      cityMap[item[0]] = true;
+      cityMap[item[1]] = true;
     });
 
-    const cityFeatures = Array.from(citySet)
-      .map(name => {
-        if (!CITIES[name]) return null;
-        return {
-          type: "Feature",
-          properties: { name: name },
-          geometry: { type: "Point", coordinates: CITIES[name] }
-        };
-      })
-      .filter(Boolean);
+    var cityFeatures = Object.keys(cityMap).map(function(name) {
+      if (!CITIES[name]) return null;
+      return {
+        type: "Feature",
+        properties: { name: name },
+        geometry: { type: "Point", coordinates: CITIES[name] }
+      };
+    }).filter(Boolean);
 
     map.addSource("cities", {
       type: "geojson",
@@ -222,28 +205,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    const tooltip = document.getElementById("tooltip");
-    
-    map.on("mouseenter", "city-points", () => {
-      map.getCanvas().style.cursor = "pointer";
-    });
-
-    map.on("mouseleave", "city-points", () => {
+    var tooltip = document.getElementById("tooltip");
+    map.on("mouseenter", "city-points", function() { map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "city-points", function() {
       map.getCanvas().style.cursor = "";
       tooltip.style.display = "none";
     });
-
-    map.on("mousemove", "city-points", (e) => {
+    map.on("mousemove", "city-points", function(e) {
       if (!e.features.length) return;
       tooltip.style.display = "block";
-      tooltip.style.left = `${e.point.x}px`;
-      tooltip.style.top = `${e.point.y}px`;
-      tooltip.innerHTML = `<strong>${e.features[0].properties.name}</strong>`;
+      tooltip.style.left = e.point.x + "px";
+      tooltip.style.top = e.point.y + "px";
+      tooltip.innerHTML = "<strong>" + e.features[0].properties.name + "</strong>";
     });
-  });
-
-  map.on("error", (e) => {
-    console.error("MAPBOX ERROR:", e);
   });
 });
 </script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Zheng Wei. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
