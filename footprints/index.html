@@ -4,7 +4,7 @@
   }
 </style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://zhengwei302.github.io/footprints/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
     initTheme();
-  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet"> <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script> <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script> <style>
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Zheng</span> Wei </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item "> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item active"> <a class="nav-link" href="/footprints/">Footprints <span class="sr-only">(current)</span> </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Footprints</h1> <p class="post-description">Personal travel, conference visits, and research stays around the world.</p> </header> <article> <hr> <p>layout: page title: 足迹 permalink: /footprints/ description: 个人旅行、参加会议以及在世界各地进行研究访问。 nav: true nav_order: 5 —</p> <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet"> <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script> <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script> <style>
   #footprints-map-container {
     width: 100%;
     height: 580px;
@@ -38,202 +38,213 @@
     transform: translate(12px, 12px);
   }
 </style> <div id="footprints-map-container"> <div id="footprints-map"></div> <div id="tooltip" class="map-tooltip"></div> </div> <script>
-mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
+document.addEventListener("DOMContentLoaded", () => {
+  mapboxgl.accessToken = "pk.eyJ1IjoiendlaTMwMiIsImEiOiJjbXN2bXNrM28wMXIyMzBwb2k1anVpeGFoIn0.s-6FmH-RTDtpUdFxMFQ6gA";
 
-const CITIES = {
-  "Urumqi": [87.6177, 43.7928],
-  "Beijing": [116.4074, 39.9042],
-  "Guangzhou": [113.2644, 23.1291],
-  "Hong Kong": [114.1694, 22.3193],
-  "Chicago": [-87.6298, 41.8781],
-  "Shenzhen": [114.0579, 22.5431],
-  "South Korea": [127.3845, 36.3504],
-  "Shenyang": [123.4315, 41.8057],
-  "Dalian": [121.6147, 38.9140],
-  "Yinchuan": [106.2781, 38.4664],
-  "Xi'an": [108.9398, 34.3416],
-  "Shanghai": [121.4737, 31.2304],
-  "Hangzhou": [120.1551, 30.2741],
-  "Nanjing": [118.7969, 32.0603],
-  "Wuhan": [114.3055, 30.5928],
-  "Changsha": [112.9388, 28.2282],
-  "Chongqing": [106.5516, 29.5630],
-  "Chengdu": [104.0668, 30.5728],
-  "Haikou": [110.3312, 20.0311],
-  "Sanya": [109.5119, 18.2528],
-  "Xiamen": [118.0894, 24.4798],
-  "Wenzhou": [120.6994, 28.0006],
-  "Zhuhai": [113.5767, 22.2707],
-  "Prague": [14.4378, 50.0755],
-  "Paris": [2.3522, 48.8566],
-  "Amsterdam": [4.9041, 52.3676],
-  "London": [-0.1276, 51.5074],
-  "Dubai": [55.2708, 25.2048],
-  "Kuala Lumpur": [101.6869, 3.1390],
-  "Seoul": [126.9780, 37.5665],
-  "Tokyo": [139.6917, 35.6895],
-  "Osaka": [135.5023, 34.6937],
-  "Vienna": [16.3738, 48.2082],
-  "Taipei": [121.5654, 25.0330],
-  "Los Angeles": [-118.2437, 34.0522],
-  "Bangkok": [100.5018, 13.7563],
-  "Bali": [115.1889, -8.4095],
-  "Singapore": [103.8198, 1.3521],
-  "Sydney": [151.2093, -33.8688],
-  "Jakarta": [106.8456, -6.2088],
-  "Helsinki": [24.9384, 60.1699],
-  "Cebu": [123.8854, 10.3157],
-  "Morocco": [-6.8498, 34.0209],
-  "Asahikawa": [142.3648, 43.7706],
-  "Sapporo": [141.3545, 43.0618],
-  "Surabaya": [112.7521, -7.2575],
-  "Sandakan": [118.1174, 5.8394],
-  "Switzerland": [7.4474, 46.9480],
-  "Inverness": [-4.2247, 57.4778],
-  "Nice": [7.2620, 43.7102],
-  "Rome": [12.4964, 41.9028],
-  "Barcelona": [2.1734, 41.3851]
-};
+  const CITIES = {
+    "Urumqi": [87.6177, 43.7928],
+    "Beijing": [116.4074, 39.9042],
+    "Guangzhou": [113.2644, 23.1291],
+    "Hong Kong": [114.1694, 22.3193],
+    "Chicago": [-87.6298, 41.8781],
+    "Shenzhen": [114.0579, 22.5431],
+    "South Korea": [127.3845, 36.3504],
+    "Shenyang": [123.4315, 41.8057],
+    "Dalian": [121.6147, 38.9140],
+    "Yinchuan": [106.2781, 38.4664],
+    "Xi'an": [108.9398, 34.3416],
+    "Shanghai": [121.4737, 31.2304],
+    "Hangzhou": [120.1551, 30.2741],
+    "Nanjing": [118.7969, 32.0603],
+    "Wuhan": [114.3055, 30.5928],
+    "Changsha": [112.9388, 28.2282],
+    "Chongqing": [106.5516, 29.5630],
+    "Chengdu": [104.0668, 30.5728],
+    "Haikou": [110.3312, 20.0311],
+    "Sanya": [109.5119, 18.2528],
+    "Xiamen": [118.0894, 24.4798],
+    "Wenzhou": [120.6994, 28.0006],
+    "Zhuhai": [113.5767, 22.2707],
+    "Prague": [14.4378, 50.0755],
+    "Paris": [2.3522, 48.8566],
+    "Amsterdam": [4.9041, 52.3676],
+    "London": [-0.1276, 51.5074],
+    "Dubai": [55.2708, 25.2048],
+    "Kuala Lumpur": [101.6869, 3.1390],
+    "Seoul": [126.9780, 37.5665],
+    "Tokyo": [139.6917, 35.6895],
+    "Osaka": [135.5023, 34.6937],
+    "Vienna": [16.3738, 48.2082],
+    "Taipei": [121.5654, 25.0330],
+    "Los Angeles": [-118.2437, 34.0522],
+    "Bangkok": [100.5018, 13.7563],
+    "Bali": [115.1889, -8.4095],
+    "Singapore": [103.8198, 1.3521],
+    "Sydney": [151.2093, -33.8688],
+    "Jakarta": [106.8456, -6.2088],
+    "Helsinki": [24.9384, 60.1699],
+    "Cebu": [123.8854, 10.3157],
+    "Morocco": [-6.8498, 34.0209],
+    "Asahikawa": [142.3648, 43.7706],
+    "Sapporo": [141.3545, 43.0618],
+    "Surabaya": [112.7521, -7.2575],
+    "Sandakan": [118.1174, 5.8394],
+    "Switzerland": [7.4474, 46.9480],
+    "Inverness": [-4.2247, 57.4778],
+    "Nice": [7.2620, 43.7102],
+    "Rome": [12.4964, 41.9028],
+    "Barcelona": [2.1734, 41.3851]
+  };
 
-const educationRoutes = [
-  ["Urumqi", "Beijing"],
-  ["Beijing", "Guangzhou"],
-  ["Guangzhou", "Hong Kong"],
-  ["Hong Kong", "Chicago"]
-];
+  const educationRoutes = [
+    ["Urumqi", "Beijing"],
+    ["Beijing", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "Chicago"]
+  ];
 
-const workRoutes = [
-  ["Beijing", "Shenzhen"],
-  ["Shenzhen", "Guangzhou"],
-  ["Guangzhou", "Hong Kong"],
-  ["Hong Kong", "South Korea"]
-];
+  const workRoutes = [
+    ["Beijing", "Shenzhen"],
+    ["Shenzhen", "Guangzhou"],
+    ["Guangzhou", "Hong Kong"],
+    ["Hong Kong", "South Korea"]
+  ];
 
-const flightRoutes = [
-  ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
-  ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
-  ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
-  ["Beijing", "Guangzhou"], ["Beijing", "Shenzhen"], ["Beijing", "Haikou"], ["Beijing", "Sanya"],
-  ["Beijing", "Xiamen"], ["Beijing", "Wenzhou"], ["Beijing", "Zhuhai"], ["Beijing", "Prague"],
-  ["Beijing", "Paris"], ["Beijing", "Amsterdam"], ["Beijing", "London"], ["Beijing", "Dubai"],
-  ["Beijing", "Kuala Lumpur"], ["Beijing", "Seoul"], ["Beijing", "Tokyo"], ["Beijing", "Osaka"],
-  ["Beijing", "Vienna"], ["Guangzhou", "Urumqi"], ["Guangzhou", "Taipei"], ["Guangzhou", "Hong Kong"],
-  ["Guangzhou", "Los Angeles"], ["Guangzhou", "Bangkok"], ["Guangzhou", "Seoul"], ["Guangzhou", "Kuala Lumpur"],
-  ["Guangzhou", "Bali"], ["Guangzhou", "Singapore"], ["Guangzhou", "Sydney"], ["Guangzhou", "Jakarta"],
-  ["Hong Kong", "Seoul"], ["Hong Kong", "Los Angeles"], ["Hong Kong", "Helsinki"], ["Hong Kong", "Cebu"],
-  ["Dubai", "Morocco"], ["Asahikawa", "Tokyo"], ["Sapporo", "Shenzhen"], ["Bali", "Surabaya"],
-  ["Kuala Lumpur", "Sandakan"], ["Helsinki", "Switzerland"], ["Switzerland", "Paris"],
-  ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
-];
+  const flightRoutes = [
+    ["Beijing", "Urumqi"], ["Beijing", "Shenyang"], ["Beijing", "Dalian"], ["Beijing", "Yinchuan"],
+    ["Beijing", "Xi'an"], ["Beijing", "Shanghai"], ["Beijing", "Hangzhou"], ["Beijing", "Nanjing"],
+    ["Beijing", "Wuhan"], ["Beijing", "Changsha"], ["Beijing", "Chongqing"], ["Beijing", "Chengdu"],
+    ["Beijing", "Guangzhou"], ["Beijing", "Shenzhen"], ["Beijing", "Haikou"], ["Beijing", "Sanya"],
+    ["Beijing", "Xiamen"], ["Beijing", "Wenzhou"], ["Beijing", "Zhuhai"], ["Beijing", "Prague"],
+    ["Beijing", "Paris"], ["Beijing", "Amsterdam"], ["Beijing", "London"], ["Beijing", "Dubai"],
+    ["Beijing", "Kuala Lumpur"], ["Beijing", "Seoul"], ["Beijing", "Tokyo"], ["Beijing", "Osaka"],
+    ["Beijing", "Vienna"], ["Guangzhou", "Urumqi"], ["Guangzhou", "Taipei"], ["Guangzhou", "Hong Kong"],
+    ["Guangzhou", "Los Angeles"], ["Guangzhou", "Bangkok"], ["Guangzhou", "Seoul"], ["Guangzhou", "Kuala Lumpur"],
+    ["Guangzhou", "Bali"], ["Guangzhou", "Singapore"], ["Guangzhou", "Sydney"], ["Guangzhou", "Jakarta"],
+    ["Hong Kong", "Seoul"], ["Hong Kong", "Los Angeles"], ["Hong Kong", "Helsinki"], ["Hong Kong", "Cebu"],
+    ["Dubai", "Morocco"], ["Asahikawa", "Tokyo"], ["Sapporo", "Shenzhen"], ["Bali", "Surabaya"],
+    ["Kuala Lumpur", "Sandakan"], ["Helsinki", "Switzerland"], ["Switzerland", "Paris"],
+    ["London", "Inverness"], ["Paris", "Nice"], ["Nice", "Rome"], ["Rome", "Barcelona"], ["Barcelona", "Paris"]
+  ];
 
-function buildRouteGeoJSON(routes, color) {
-  return routes
-    .map(([from, to]) => {
-      const start = CITIES[from];
-      const end = CITIES[to];
-      if (!start || !end) return null;
+  function buildRouteGeoJSON(routes, color) {
+    return routes
+      .map(([from, to]) => {
+        const start = CITIES[from];
+        const end = CITIES[to];
+        if (!start || !end) return null;
 
-      // 使用 Turf 生成大圆弧线（飞线效果）
-      const curved = turf.greatCircle(start, end, { npoints: 60 });
-      curved.properties = {
-        color: color,
-        route: `${from} → ${to}`
-      };
-      return curved;
-    })
-    .filter(Boolean);
-}
+        try {
+          const curved = turf.greatCircle(start, end, { npoints: 60 });
+          curved.properties = {
+            color: color,
+            route: `${from} → ${to}`
+          };
+          return curved;
+        } catch (e) {
+          return {
+            type: "Feature",
+            properties: { color: color, route: `${from} → ${to}` },
+            geometry: { type: "LineString", coordinates: [start, end] }
+          };
+        }
+      })
+      .filter(Boolean);
+  }
 
-const allRoutes = [
-  ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
-  ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
-  ...buildRouteGeoJSON(flightRoutes, "#ec4899")
-];
+  const allRoutes = [
+    ...buildRouteGeoJSON(educationRoutes, "#00e1ff"),
+    ...buildRouteGeoJSON(workRoutes, "#ffaa00"),
+    ...buildRouteGeoJSON(flightRoutes, "#ec4899")
+  ];
 
-const map = new mapboxgl.Map({
-  container: "footprints-map",
-  style: "mapbox://styles/mapbox/dark-v11",
-  center: [60, 30],
-  zoom: 1.8,
-  projection: "mercator"
-});
-
-map.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-map.on("load", () => {
-  map.addSource("routes", {
-    type: "geojson",
-    data: { type: "FeatureCollection", features: allRoutes }
+  const map = new mapboxgl.Map({
+    container: "footprints-map",
+    style: "mapbox://styles/mapbox/dark-v11",
+    center: [50, 30],
+    zoom: 1.5,
+    projection: "mercator"
   });
 
-  map.addLayer({
-    id: "route-lines",
-    type: "line",
-    source: "routes",
-    layout: { "line-cap": "round", "line-join": "round" },
-    paint: {
-      "line-color": ["get", "color"],
-      "line-width": 2,
-      "line-opacity": 0.8
-    }
+  map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+  map.on("load", () => {
+    map.resize();
+
+    map.addSource("routes", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: allRoutes }
+    });
+
+    map.addLayer({
+      id: "route-lines",
+      type: "line",
+      source: "routes",
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": ["get", "color"],
+        "line-width": 2,
+        "line-opacity": 0.8
+      }
+    });
+
+    const citySet = new Set();
+    [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(([f, t]) => {
+      citySet.add(f);
+      citySet.add(t);
+    });
+
+    const cityFeatures = Array.from(citySet)
+      .map(name => {
+        if (!CITIES[name]) return null;
+        return {
+          type: "Feature",
+          properties: { name: name },
+          geometry: { type: "Point", coordinates: CITIES[name] }
+        };
+      })
+      .filter(Boolean);
+
+    map.addSource("cities", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: cityFeatures }
+    });
+
+    map.addLayer({
+      id: "city-points",
+      type: "circle",
+      source: "cities",
+      paint: {
+        "circle-radius": 4.5,
+        "circle-color": "#ffffff",
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#ec4899"
+      }
+    });
+
+    const tooltip = document.getElementById("tooltip");
+    
+    map.on("mouseenter", "city-points", () => {
+      map.getCanvas().style.cursor = "pointer";
+    });
+
+    map.on("mouseleave", "city-points", () => {
+      map.getCanvas().style.cursor = "";
+      tooltip.style.display = "none";
+    });
+
+    map.on("mousemove", "city-points", (e) => {
+      if (!e.features.length) return;
+      tooltip.style.display = "block";
+      tooltip.style.left = `${e.point.x}px`;
+      tooltip.style.top = `${e.point.y}px`;
+      tooltip.innerHTML = `<strong>${e.features[0].properties.name}</strong>`;
+    });
   });
 
-  const citySet = new Set();
-  [...educationRoutes, ...workRoutes, ...flightRoutes].forEach(([f, t]) => {
-    citySet.add(f);
-    citySet.add(t);
+  map.on("error", (e) => {
+    console.error("MAPBOX ERROR:", e);
   });
-
-  const cityFeatures = Array.from(citySet)
-    .map(name => {
-      if (!CITIES[name]) return null;
-      return {
-        type: "Feature",
-        properties: { name: name },
-        geometry: { type: "Point", coordinates: CITIES[name] }
-      };
-    })
-    .filter(Boolean);
-
-  map.addSource("cities", {
-    type: "geojson",
-    data: { type: "FeatureCollection", features: cityFeatures }
-  });
-
-  map.addLayer({
-    id: "city-points",
-    type: "circle",
-    source: "cities",
-    paint: {
-      "circle-radius": 4.5,
-      "circle-color": "#ffffff",
-      "circle-stroke-width": 2,
-      "circle-stroke-color": "#ec4899"
-    }
-  });
-
-  const tooltip = document.getElementById("tooltip");
-  
-  map.on("mouseenter", "city-points", () => {
-    map.getCanvas().style.cursor = "pointer";
-  });
-
-  map.on("mouseleave", "city-points", () => {
-    map.getCanvas().style.cursor = "";
-    tooltip.style.display = "none";
-  });
-
-  map.on("mousemove", "city-points", (e) => {
-    if (!e.features.length) return;
-    tooltip.style.display = "block";
-    tooltip.style.left = `${e.point.x}px`;
-    tooltip.style.top = `${e.point.y}px`;
-    tooltip.innerHTML = `<strong>${e.features[0].properties.name}</strong>`;
-  });
-});
-
-map.on("error", (e) => {
-  console.error("MAPBOX ERROR:", e);
 });
 </script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Zheng Wei. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
