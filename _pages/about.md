@@ -36,9 +36,11 @@ My work has been published in premier venues including CHI, UIST, IEEE TVCG, and
 **Conference Reviewer :**, ACM CHI 2026/2025/2024, ACM UIST 2026, ACM CSCW 2025, ACM TheWebConf 2026/2025, EMNLP2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM C&C 2025, VINCI 2025.
 
 ## News
-A paper I co-authored has been conditionally accepted by ACM Group 2027!
+A paper I co-authored has been accepted by ACM Group 2027!
 
-A paper I co-authored has been conditionally accepted by International Journal of Human–Computer Interaction (IJHCI)!
+A paper I co-authored has been accepted by Journal of Medical Internet Research (JMIR)!
+
+A paper I co-authored has been accepted by International Journal of Human–Computer Interaction (IJHCI)!
 
 We'll be hosting a course at SIGGRAPH Aisa 2026! 
 
