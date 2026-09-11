@@ -31,9 +31,9 @@ My research has been published in premier venues including ACM CHI, UIST, TheWeb
 
 **Conference Committee :** ACM CHI 27 Associate Chair, ACM SIGGRAPH Asia 26/25 Course Organizer, ACM SIGGRAPH 26 Course Organizer, ACM MMsys 26 Proceedings Chair, CVPR 25 CVEU Workshop Program Chair.
 
-**Journal Reviewer :**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX.
+**Journal Reviewer :** IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX.
 
-**Conference Reviewer :**, ACM CHI 27/26/25/24, ACM UIST 26, ACM CSCW 25, ACM TheWebConf 26/25, EMNLP 26, NeurIPS 25, CVPR 25, ACM SIGGRAPH Asia 25, ACM C&C 25, VINCI 25.
+**Conference Reviewer :** ACM CHI 27/26/25/24, ACM UIST 26, ACM CSCW 25, ACM TheWebConf 26/25, EMNLP 26, NeurIPS 25, CVPR 25, ACM SIGGRAPH Asia 25, ACM C&C 25, VINCI 25.
 
 ## News
 A paper I co-authored has been accepted by ACM Group 27!
