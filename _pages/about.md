@@ -15,6 +15,11 @@ news: true
 latest_posts: false
 selected_papers: true
 social: true
+news: true
+latest_posts: false
+selected_papers: true
+social: true
+nav_order: 1
 ---
 
 I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from HKUST. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK).
