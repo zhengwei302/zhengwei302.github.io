@@ -17,7 +17,7 @@ selected_papers: true
 social: true
 ---
 
-I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from the VisLab at HKUST, where I was advised by Prof. Huamin Qu and Prof. Pan Hui. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab (with Prof. James Evans) and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK) (guided by Dr. Yun Wang).
+I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from HKUST. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK).
 
 My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (XR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can enhance human agency. My current work focuses on two pillars:
 
@@ -25,22 +25,22 @@ My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Rea
 
 **Human–AI Collaboration**: Designing multi-agent systems that foster seamless co-creation between humans and generative AI.
 
-My work has been published in premier venues including CHI, UIST, IEEE TVCG, and VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. I actively serve the community by organizing courses at SIGGRAPH and taking on chair roles for CVPR Workshop and ACM MMSys. Beyond academia, my systems are supported by multiple grants. Ultimately, my goal is to shape AI systems that make complex information intuitive and open innovative pathways for responsible artistic expression. 
+My research has been published in premier venues including ACM CHI, UIST, TheWebConf, IEEE TVCG, and IEEE VR, earning Best Paper Honorable Mentions at IEEE VR and ICSC. Committed to academic community service, I have organized courses at SIGGRAPH and served in leadership roles as an Associate Chair (AC) for CHI, as well as a Chair for workshops at CVPR and ACM MMSys. Beyond academia, my work is supported by multiple research grants and protected by both a US and a Chinese patent. Ultimately, my goal is to build AI systems that make complex information intuitive while opening innovative pathways for responsible artistic expression.
 
 ## Academic service
 
-**Conference Committee :** ACM CHI 2027 Associate Chair, ACM SIGGRAPH Asia 2026 Course Organizer, ACM SIGGRAPH 2026 Course Organizer, ACM MMsys 2026 Proceedings Chair, ACM SIGGRAPH Asia 2025 Course Organizer, CVPR 2025 CVEU Workshop Program Chair.
+**Conference Committee :** ACM CHI 27 Associate Chair, ACM SIGGRAPH Asia 26/25 Course Organizer, ACM SIGGRAPH 26 Course Organizer, ACM MMsys 26 Proceedings Chair, CVPR 25 CVEU Workshop Program Chair.
 
 **Journal Reviewer :**, IEEE Transactions on Visualization and Computer Graphics (TVCG), Visual Informatics, ACM Transactions on Social Computing, Natural Language Processing Journal, SoftwareX.
 
-**Conference Reviewer :**, ACM CHI 2026/2025/2024, ACM UIST 2026, ACM CSCW 2025, ACM TheWebConf 2026/2025, EMNLP2026, NeurIPS 2025, CVPR 2025, ACM SIGGRAPH Asia 2025, ACM C&C 2025, VINCI 2025.
+**Conference Reviewer :**, ACM CHI 27/26/25/24, ACM UIST 26, ACM CSCW 25, ACM TheWebConf 26/25, EMNLP 26, NeurIPS 25, CVPR 25, ACM SIGGRAPH Asia 25, ACM C&C 25, VINCI 25.
 
 ## News
-A paper I co-authored has been accepted by ACM Group 2027!
+A paper I co-authored has been accepted by ACM Group 27!
 
 A paper I co-authored has been accepted by Journal of Medical Internet Research (JMIR)!
 
 A paper I co-authored has been accepted by International Journal of Human–Computer Interaction (IJHCI)!
 
-We'll be hosting a course at SIGGRAPH Aisa 2026! 
+We'll be hosting a course at SIGGRAPH Aisa 26! 
 
