@@ -22,7 +22,7 @@ social: true
 nav_order: 1
 ---
 
-I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from HKUST. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK).
+I am a Postdoctoral Researcher at the KAIST Interaction Lab (KIXLAB), working with Prof. Juho Kim. I received my Ph.D. in Human-Computer Interaction from HKUST. My academic journey includes roles as a Visiting Researcher at the University of Chicago’s Knowledge Lab and as a Research Intern at Microsoft Research Asia HongKong (MSRA HK). Prior to entering academia, I worked professionally as a cinematographer, an experience that shapes my human-centric perspective on visual storytelling, spatial framing, and creative control.
 
 My research bridges Visual Analytics, Human-Centered AI (HCAI), and Extended Reality (XR). Driven by the principle of the "human–AI loop," I investigate how intent capture and collaborative feedback can enhance human agency. My current work focuses on two pillars:
 
@@ -47,5 +47,5 @@ A paper I co-authored has been accepted by Journal of Medical Internet Research 
 
 A paper I co-authored has been accepted by International Journal of Human–Computer Interaction (IJHCI)!
 
-We'll be hosting a course at SIGGRAPH Aisa 26! 
+We'll be hosting a course at SIGGRAPH Asia 26! 
 
