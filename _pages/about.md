@@ -8,7 +8,8 @@ profile:
   align: right
   image: prof_pic.jpg
   image_circular: false
-  more_info: >
+  more_info: 
+  >
     <p>Daejeon, South Korea</p>
 
 news: true
