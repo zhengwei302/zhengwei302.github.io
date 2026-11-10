@@ -18,6 +18,7 @@ social: true
 nav_order: 1
 ---
 
+
 I am a Postdoctoral Researcher at **KAIST Interaction Lab (KIXLAB)** working with Prof. Juho Kim. I earned my Ph.D. in HCI from **HKUST**, with prior research roles at **UChicago Knowledge Lab** and **MSRA HK**. Before academia, I was a professional **cinematographer**, which grounds my perspective on visual storytelling, spatial framing, and creative control.
 
 My research bridges **Visual Analytics**, **Human-Centered AI (HCAI)**, and **Extended Reality (XR)**, focusing on the human–AI loop across two pillars: **Immersive Skill Training** and **Multi-Agent Co-Creation**. My work appears in **CHI, UIST, TheWebConf, TVCG, and IEEE VR** (Best Paper Honorable Mentions at IEEE VR & ICSC), and is backed by multiple grants and US/CN patents.
